@@ -42,8 +42,14 @@ public class NotesListPresenter {
         return repository.getByIndex(index);
     }
 
-    public void onContextMenuButton(NoteInfoModel model){
+    public void onContextMenuEdit(NoteInfoModel model){
         // TODO: !!!
-        System.out.println("_STUB onContextMenuButton with model: " + model);
+        System.out.println("_STUB onContextMenuEdit with model: " + model);
+    }
+
+    public void onContextMenuDelete(NoteInfoModel model){
+        int index = repository.findIndex(model);
+        repository.removeByIndex(index);
+        view.removeNote(index);
     }
 }

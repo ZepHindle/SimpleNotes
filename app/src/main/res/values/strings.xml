@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SimpleNotes</string>
+    <string name="popupmenu_edit">edit</string>
+    <string name="popupmenu_delete">delete</string>
 </resources>

@@ -29,6 +29,10 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         presenter = new NotesListPresenter(this, repository);
         setUpUI();
         presenter.onCreate();
+
+        // TODO: tmp thing
+        for (int i = 0; i<10000; i++)
+            repository.add(new NoteInfoModel());
     }
 
     private void setUpUI(){

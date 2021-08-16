@@ -20,4 +20,12 @@ public class NoteInfoModel {
     public Date getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return "NoteInfoModel{" +
+                "name='" + name + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

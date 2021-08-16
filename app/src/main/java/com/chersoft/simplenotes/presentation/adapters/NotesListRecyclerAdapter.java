@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,9 +50,22 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             super(view);
             nameView = view.findViewById(R.id.notes_list_item_name_view);
             dateView = view.findViewById(R.id.notes_list_item_date_view);
+
+            PopupMenu menu = new PopupMenu(view.getContext(), view);
+            menu.inflate(R.menu.notes_list_item_popup_menu);
+            menu.setOnMenuItemClickListener( menuItem -> {
+                int id = menuItem.getItemId();
+                if (id == R.id.popupmenu_delete){
+                    NotesListRecyclerAdapter.this.presenter.onContextMenuDelete(getModel());
+                } else if (id == R.id.popupmenu_edit){
+                    NotesListRecyclerAdapter.this.presenter.onContextMenuEdit(getModel());
+                }
+                return false;
+            });
+
             ImageButton menuButton = view.findViewById(R.id.notes_list_menu_button);
             menuButton.setOnClickListener( v -> {
-                NotesListRecyclerAdapter.this.presenter.onContextMenuButton(getModel());
+                menu.show();
             });
         }
 
