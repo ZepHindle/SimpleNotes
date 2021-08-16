@@ -1,5 +1,6 @@
 package com.chersoft.simplenotes.presentation.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
+import com.chersoft.simplenotes.utils.ColorTable;
 
 public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecyclerAdapter.NotesListViewHolder>{
 
@@ -73,6 +75,7 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             this.model = model;
             nameView.setText(model.getName());
             dateView.setText(model.getDate().toString());
+            this.itemView.setBackgroundColor(ColorTable.getColor(model.getColorIndex()));
         }
 
         private NoteInfoModel getModel() {
