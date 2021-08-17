@@ -1,6 +1,5 @@
 package com.chersoft.simplenotes.presentation.adapters;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
         return presenter.onGetCount();
     }
 
-    class NotesListViewHolder extends RecyclerView.ViewHolder{
+    public class NotesListViewHolder extends RecyclerView.ViewHolder{
 
         private NoteInfoModel model;
         private final TextView nameView;
@@ -52,8 +51,9 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             super(view);
             nameView = view.findViewById(R.id.notes_list_item_name_view);
             dateView = view.findViewById(R.id.notes_list_item_date_view);
+            ImageButton menuButton = view.findViewById(R.id.notes_list_menu_button);
 
-            PopupMenu menu = new PopupMenu(view.getContext(), view);
+            PopupMenu menu = new PopupMenu(view.getContext(), menuButton);
             menu.inflate(R.menu.notes_list_item_popup_menu);
             menu.setOnMenuItemClickListener( menuItem -> {
                 int id = menuItem.getItemId();
@@ -65,7 +65,6 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
                 return false;
             });
 
-            ImageButton menuButton = view.findViewById(R.id.notes_list_menu_button);
             menuButton.setOnClickListener( v -> {
                 menu.show();
             });
@@ -78,7 +77,7 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             this.itemView.setBackgroundColor(ColorTable.getColor(model.getColorIndex()));
         }
 
-        private NoteInfoModel getModel() {
+        public NoteInfoModel getModel() {
             return model;
         }
     }

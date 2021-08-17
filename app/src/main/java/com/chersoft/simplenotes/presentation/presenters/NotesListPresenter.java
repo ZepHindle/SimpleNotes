@@ -32,7 +32,11 @@ public class NotesListPresenter {
 
     }
 
-    /// методы для вызова из адаптера recycler view
+    public void onMainMenuAddNote(){
+        System.out.println("_STUB onMainMenuAddNote()");
+    }
+
+    /// методы для вызова из адаптера/ItemTouchHelper recycler view
 
     public int onGetCount(){
         return repository.getCount();
@@ -48,7 +52,17 @@ public class NotesListPresenter {
     }
 
     public void onContextMenuDelete(NoteInfoModel model){
+        removeNote(model);
+    }
+
+    public void onNoteSwiped(NoteInfoModel model){
+        removeNote(model);
+    }
+
+
+    private void removeNote(NoteInfoModel model){
         int index = repository.findIndex(model);
+        if (index < 0) return;
         repository.removeByIndex(index);
         view.removeNote(index);
     }
