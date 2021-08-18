@@ -17,6 +17,12 @@ public class NoteInfoModel {
         this.colorIndex = Math.abs((new Random().nextInt())% ColorTable.getTableSize());
     }
 
+    public NoteInfoModel(String name, Date date){
+        this.name = name;
+        this.date = date;
+        this.colorIndex = 0;
+    }
+
     public String getName() {
         return name;
     }

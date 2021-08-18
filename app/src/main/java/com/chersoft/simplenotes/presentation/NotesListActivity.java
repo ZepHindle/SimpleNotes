@@ -2,6 +2,7 @@ package com.chersoft.simplenotes.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,18 +12,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.DomainSingleton;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.NoteInfoRepositoryStubImpl;
 import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
+import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 
 public class NotesListActivity extends AppCompatActivity implements NotesListView{
 
-    private NotesListPresenter presenter;
+    private static final String NEW_NOTE_DIALOG_TAG = "com.chersoft.newNoteDialogTag";
 
+    private NotesListPresenter presenter;
     private RecyclerView recyclerView;
 
     // инициализация
@@ -32,14 +37,10 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NoteInfoRepository repository = new NoteInfoRepositoryStubImpl();
+        NoteInfoRepository repository = DomainSingleton.get().getRepository();
         presenter = new NotesListPresenter(this, repository);
         setUpUI();
         presenter.onCreate();
-
-        // TODO: tmp thing
-        for (int i = 0; i<10000; i++)
-            repository.add(new NoteInfoModel());
     }
 
     @Override
@@ -70,6 +71,15 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
 
     // методы меню, диалогов и т.д.
 
+    /**
+     * Вызывается из NewNoteDialog при нажатии на кнопку "ok".
+     * @param noteName имя заметки из диалога
+     * @return true, если диалог нужно закрыть и false иначе
+     */
+    public boolean onNewNoteDialogPositiveButtonPressed(String noteName){
+        return presenter.onNewNoteDialogPositiveButtonPressed(noteName);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -94,5 +104,17 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     @Override
     public void updateNote(int index) {
         recyclerView.getAdapter().notifyItemChanged(index);
+    }
+
+    @Override
+    public void showNewNoteDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        NewNoteDialog dialog = new NewNoteDialog();
+        dialog.show(fm, NEW_NOTE_DIALOG_TAG);
+    }
+
+    @Override
+    public void showToast(int stringResId) {
+        Toast.makeText(this, stringResId, Toast.LENGTH_LONG).show();
     }
 }

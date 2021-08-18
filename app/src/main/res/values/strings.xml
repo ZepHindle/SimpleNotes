@@ -2,4 +2,7 @@
     <string name="app_name">SimpleNotes</string>
     <string name="popupmenu_edit">edit</string>
     <string name="popupmenu_delete">delete</string>
+    <string name="new_note_dialog_enter_note_name">Enter note name</string>
+    <string name="note_already_exists">Note with this name already exists</string>
+    <string name="note_bad_name">Name of note is invalid</string>
 </resources>

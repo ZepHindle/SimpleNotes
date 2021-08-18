@@ -1,8 +1,12 @@
 package com.chersoft.simplenotes.presentation.presenters;
 
+import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.presentation.NotesListView;
+import com.chersoft.simplenotes.utils.NoteNameValidation;
+
+import java.util.Date;
 
 public class NotesListPresenter {
 
@@ -33,10 +37,25 @@ public class NotesListPresenter {
     }
 
     public void onMainMenuAddNote(){
-        System.out.println("_STUB onMainMenuAddNote()");
+        view.showNewNoteDialog();
     }
 
-    /// методы для вызова из адаптера/ItemTouchHelper recycler view
+    public boolean onNewNoteDialogPositiveButtonPressed(String noteName){
+        if (!NoteNameValidation.noteNameIsValid(noteName)){
+            getView().showToast(R.string.note_bad_name);
+            return false;
+        }
+        if (repository.containsName(noteName)){
+            getView().showToast(R.string.note_already_exists);
+            return false;
+        }
+        // добавляем новую заметку
+        int index = repository.add(new NoteInfoModel(noteName, new Date()));
+        view.addNote(index);
+        return true;
+    }
+
+    // методы для вызова из адаптера/ItemTouchHelper recycler view
 
     public int onGetCount(){
         return repository.getCount();

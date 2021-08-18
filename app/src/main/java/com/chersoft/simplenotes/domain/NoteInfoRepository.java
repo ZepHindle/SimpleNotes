@@ -36,4 +36,11 @@ public interface NoteInfoRepository {
      * @return номер добавленной заметки
      */
     int add(NoteInfoModel model);
+
+    /**
+     * Проверяет, есть ли заметка с таким именем.
+     * @param name имя заметки
+     * @return есть, ли заметка с таким именем
+     */
+    boolean containsName(String name);
 }
