@@ -1,6 +1,7 @@
 package com.chersoft.simplenotes.presentation;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -69,15 +70,18 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    public NotesListPresenter getPresenter() {
+        return presenter;
+    }
+
     // методы меню, диалогов и т.д.
 
     /**
-     * Вызывается из NewNoteDialog при нажатии на кнопку "ok".
-     * @param noteName имя заметки из диалога
-     * @return true, если диалог нужно закрыть и false иначе
+     * Вызывается при завершении диалога.
+     * @param noteName имя для новой заметки или null, если пользователь ввел некорректное имя
      */
-    public boolean onNewNoteDialogPositiveButtonPressed(String noteName){
-        return presenter.onNewNoteDialogPositiveButtonPressed(noteName);
+    public void onNewNoteDialogDismiss(@Nullable String noteName){
+        presenter.onNewNoteDialogDismiss(noteName);
     }
 
     @Override

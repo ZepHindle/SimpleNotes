@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +18,13 @@ import androidx.fragment.app.DialogFragment;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.presentation.NotesListActivity;
+import com.chersoft.simplenotes.utils.NoteNameValidation;
 
 public class NewNoteDialog extends DialogFragment {
 
     private AlertDialog alertDialog;
     private EditText nameEditText;
+    private @Nullable String noteName;
 
     @NonNull
     @Override
@@ -51,18 +54,38 @@ public class NewNoteDialog extends DialogFragment {
         super.onResume();
         Button button = alertDialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE);
         button.setOnClickListener( v -> {
-            String name = nameEditText.getText().toString();
+            String text = nameEditText.getText().toString();
             Activity activity = getActivity();
             if (!(activity instanceof NotesListActivity)) return;
             NotesListActivity notesListActivity = (NotesListActivity) activity;
-            if (notesListActivity.onNewNoteDialogPositiveButtonPressed(name))
-                alertDialog.dismiss();
+
+            if (!NoteNameValidation.noteNameIsValid(text)){
+                toast(R.string.note_bad_name);
+                noteName = null;
+                return;
+            }
+
+            if (notesListActivity.getPresenter().onNoteContainsName(text)){
+                toast(R.string.note_already_exists);
+                noteName = null;
+                return;
+            }
+
+            noteName = text;
+            alertDialog.dismiss();
         });
     }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        ///...
+        Activity activity = getActivity();
+        if (!(activity instanceof NotesListActivity)) return;
+        NotesListActivity notesListActivity = (NotesListActivity) activity;
+        notesListActivity.onNewNoteDialogDismiss(noteName);
+    }
+
+    private void toast(int stringResId){
+        Toast.makeText(requireContext(), stringResId, Toast.LENGTH_LONG).show();
     }
 }

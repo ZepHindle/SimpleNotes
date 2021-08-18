@@ -1,5 +1,7 @@
 package com.chersoft.simplenotes.presentation.presenters;
 
+import androidx.annotation.Nullable;
+
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
@@ -40,19 +42,15 @@ public class NotesListPresenter {
         view.showNewNoteDialog();
     }
 
-    public boolean onNewNoteDialogPositiveButtonPressed(String noteName){
-        if (!NoteNameValidation.noteNameIsValid(noteName)){
-            getView().showToast(R.string.note_bad_name);
-            return false;
-        }
-        if (repository.containsName(noteName)){
-            getView().showToast(R.string.note_already_exists);
-            return false;
-        }
+    public boolean onNoteContainsName(String noteName){
+        return repository.containsName(noteName);
+    }
+
+    public void onNewNoteDialogDismiss(@Nullable String noteName){
+        if (noteName == null) return;
         // добавляем новую заметку
         int index = repository.add(new NoteInfoModel(noteName, new Date()));
         view.addNote(index);
-        return true;
     }
 
     // методы для вызова из адаптера/ItemTouchHelper recycler view
