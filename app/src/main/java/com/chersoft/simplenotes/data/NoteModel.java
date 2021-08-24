@@ -1,4 +1,6 @@
 package com.chersoft.simplenotes.data;
 
-public class NoteModel {
+import java.io.Serializable;
+
+public class NoteModel implements Serializable {
 }

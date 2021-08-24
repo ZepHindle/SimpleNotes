@@ -1,5 +1,12 @@
 package com.chersoft.simplenotes.presentation;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,18 +15,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.DomainSingleton;
-import com.chersoft.simplenotes.domain.NoteInfoRepository;
-import com.chersoft.simplenotes.domain.NoteInfoRepositoryStubImpl;
 import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
 import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
@@ -38,8 +35,9 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NoteInfoRepository repository = DomainSingleton.get().getRepository();
-        presenter = new NotesListPresenter(this, repository);
+        //NoteInfoRepository repository = DomainSingleton.get().getRepository();
+        presenter = new NotesListPresenter(this);
+        ((MainApplication)getApplicationContext()).mainComponent.inject(presenter);
         setUpUI();
         presenter.onCreate();
     }
@@ -110,11 +108,18 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         recyclerView.getAdapter().notifyItemChanged(index);
     }
 
+
     @Override
     public void showNewNoteDialog() {
         FragmentManager fm = getSupportFragmentManager();
         NewNoteDialog dialog = new NewNoteDialog();
         dialog.show(fm, NEW_NOTE_DIALOG_TAG);
+    }
+
+    @Override
+    public void startNoteActivity(NoteInfoModel noteInfoModel) {
+        Intent intent = NoteActivity.createIntent(this, noteInfoModel);
+        startActivity(intent);
     }
 
     @Override

@@ -2,10 +2,11 @@ package com.chersoft.simplenotes.data;
 
 import com.chersoft.simplenotes.utils.ColorTable;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Random;
 
-public class NoteInfoModel {
+public class NoteInfoModel implements Serializable {
     private String name;
     private Date date;
     private int colorIndex; // индекс цвета в таблице цветов

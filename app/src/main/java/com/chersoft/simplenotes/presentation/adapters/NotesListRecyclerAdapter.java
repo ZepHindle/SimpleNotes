@@ -68,6 +68,10 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             menuButton.setOnClickListener( v -> {
                 menu.show();
             });
+
+            view.setOnClickListener( v -> {
+                NotesListRecyclerAdapter.this.presenter.onNotePress(getModel());
+            });
         }
 
         public void bind(NoteInfoModel model){

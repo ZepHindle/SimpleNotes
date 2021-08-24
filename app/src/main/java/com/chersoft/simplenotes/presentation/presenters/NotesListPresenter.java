@@ -10,14 +10,17 @@ import com.chersoft.simplenotes.utils.NoteNameValidation;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 public class NotesListPresenter {
 
     private final NotesListView view;
-    private final NoteInfoRepository repository;
 
-    public NotesListPresenter(NotesListView view, NoteInfoRepository repository){
+    @Inject
+    NoteInfoRepository repository;
+
+    public NotesListPresenter(NotesListView view){
         this.view = view;
-        this.repository = repository;
     }
 
     protected NotesListView getView(){
@@ -74,6 +77,10 @@ public class NotesListPresenter {
 
     public void onNoteSwiped(NoteInfoModel model){
         removeNote(model);
+    }
+
+    public void onNotePress(NoteInfoModel noteInfoModel){
+        getView().startNoteActivity(noteInfoModel);
     }
 
 

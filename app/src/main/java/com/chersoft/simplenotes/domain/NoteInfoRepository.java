@@ -1,5 +1,7 @@
 package com.chersoft.simplenotes.domain;
 
+import androidx.annotation.Nullable;
+
 import com.chersoft.simplenotes.data.NoteInfoModel;
 
 public interface NoteInfoRepository {
@@ -43,4 +45,6 @@ public interface NoteInfoRepository {
      * @return есть, ли заметка с таким именем
      */
     boolean containsName(String name);
+
+    @Nullable NoteInfoModel findByName(String name);
 }

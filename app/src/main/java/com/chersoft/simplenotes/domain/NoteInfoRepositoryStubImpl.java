@@ -1,5 +1,7 @@
 package com.chersoft.simplenotes.domain;
 
+import androidx.annotation.Nullable;
+
 import com.chersoft.simplenotes.data.NoteInfoModel;
 
 import java.util.ArrayList;
@@ -45,5 +47,16 @@ public class NoteInfoRepositoryStubImpl implements NoteInfoRepository {
             }
         }
         return false;
+    }
+
+    @Nullable
+    @Override
+    public NoteInfoModel findByName(String name) {
+        for (NoteInfoModel model : notes){
+            if (model.getName().equals(name)) {
+                return model;
+            }
+        }
+        return null;
     }
 }
