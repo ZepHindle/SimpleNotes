@@ -20,14 +20,27 @@ public class NoteViewModel implements Serializable {
 
     private static final String FILE_NAME = "cache.bin";
 
+    private boolean hasChanges = false;
     private NoteModel noteModel = new NoteModel();
 
     public String getText() {
         return noteModel.getText();
     }
 
+    public NoteModel getNoteModel() {
+        return noteModel;
+    }
+
+    public boolean hasChanges() {
+        return hasChanges;
+    }
+
     public void setText(String text) {
         noteModel.setText(text);
+    }
+
+    public void setHasChanges(boolean hasChanges) {
+        this.hasChanges = hasChanges;
     }
 
     private static NoteViewModel instance;
@@ -63,5 +76,6 @@ public class NoteViewModel implements Serializable {
     public static void remove(Context context){
         File file = context.getFileStreamPath(FILE_NAME);
         file.delete();
+        instance = null;
     }
 }

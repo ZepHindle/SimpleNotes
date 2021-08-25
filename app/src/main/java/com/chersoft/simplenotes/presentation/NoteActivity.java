@@ -1,6 +1,7 @@
 package com.chersoft.simplenotes.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +12,14 @@ import android.widget.EditText;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.presentation.fragments.NoteExitDialog;
 import com.chersoft.simplenotes.presentation.presenters.NoteActivityPresenter;
-import com.chersoft.simplenotes.presentation.viewmodels.NoteViewModel;
 
 public class NoteActivity extends AppCompatActivity implements NoteView {
 
     private static final String EXTRA_NOTE_INFO_MODEL = "com.chersoft.extraNoteInfoModel";
 
+    private boolean firstTextWatcherCall;
     private NoteActivityPresenter presenter;
     private EditText noteEditText;
 
@@ -35,12 +37,18 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                presenter.onTextChanged(charSequence.toString());
+                if (firstTextWatcherCall) {
+                    firstTextWatcherCall = false;
+                } else {
+                    presenter.onTextChanged(charSequence.toString());
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {}
         });
+
+        firstTextWatcherCall = true;
 
         ((MainApplication)getApplicationContext()).mainComponent.inject(presenter);
 
@@ -52,6 +60,16 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
     protected void onStop() {
         super.onStop();
         presenter.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        presenter.onBackPressed();
+    }
+
+    public void onChooseSave(boolean needSave){
+        presenter.onChooseSave(needSave);
     }
 
     // реализация методов NoteView
@@ -69,6 +87,18 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
     @Override
     public void setViewTitle(String title) {
         setTitle(title);
+    }
+
+    @Override
+    public void showExitDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        NoteExitDialog dialog = new NoteExitDialog();
+        dialog.show(fm, "com.chersoft.noteExitDialog");
+    }
+
+    @Override
+    public void close() {
+        this.finish();
     }
 
     public static Intent createIntent(Context context, NoteInfoModel noteInfoModel){

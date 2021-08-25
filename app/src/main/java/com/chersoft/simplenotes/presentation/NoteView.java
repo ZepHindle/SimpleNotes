@@ -6,4 +6,6 @@ public interface NoteView {
     Context getContext();
     void setText(String text);
     void setViewTitle(String title);
+    void showExitDialog();
+    void close();
 }

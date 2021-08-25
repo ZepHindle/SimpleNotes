@@ -14,10 +14,12 @@ public class NoteActivityPresenter {
 
     private NoteView noteView;
     private NoteViewModel noteViewModel;
+    private NoteInfoModel noteInfoModel;
 
     public void onCreate(NoteView noteView, NoteInfoModel noteInfoModel){
         this.noteView = noteView;
         this.noteViewModel = NoteViewModel.load(noteRepository, noteInfoModel, noteView.getContext());
+        this.noteInfoModel = noteInfoModel;
         noteView.setViewTitle(noteInfoModel.getName());
         noteView.setText(noteViewModel.getText());
     }
@@ -26,8 +28,26 @@ public class NoteActivityPresenter {
         NoteViewModel.save(noteView.getContext());
     }
 
+    public void onBackPressed(){
+        if (noteViewModel.hasChanges()){
+            noteView.showExitDialog();
+        } else {
+            noteView.close();
+            NoteViewModel.remove(noteView.getContext());
+        }
+    }
+
+    public void onChooseSave(boolean needSave){
+        if (needSave){
+            noteRepository.setByName(noteInfoModel.getName(), noteViewModel.getNoteModel());
+        }
+        NoteViewModel.remove(noteView.getContext());
+        noteView.close();
+    }
+
     public void onTextChanged(String text){
         noteViewModel.setText(text);
+        noteViewModel.setHasChanges(true);
     }
 
 }
