@@ -1,5 +1,7 @@
 package com.chersoft.simplenotes.dg;
 
+import android.content.Context;
+
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.NoteRepository;
 import com.chersoft.simplenotes.presentation.NoteActivity;
@@ -16,6 +18,7 @@ import dagger.Component;
 public interface MainComponent {
     NoteInfoRepository getNoteInfoRepository();
     NoteRepository getNoteRepository();
+    Context getApplicationContext();
     void inject(NotesListPresenter notesListPresenter);
     void inject(NoteActivityPresenter noteActivityPresenter);
 }

@@ -49,5 +49,4 @@ public class NoteActivityPresenter {
         noteViewModel.setText(text);
         noteViewModel.setHasChanges(true);
     }
-
 }

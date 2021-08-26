@@ -1,10 +1,11 @@
 package com.chersoft.simplenotes.dg;
 
+import android.content.Context;
+
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.NoteInfoRepositoryStubImpl;
 import com.chersoft.simplenotes.domain.NoteRepository;
-import com.chersoft.simplenotes.domain.NoteRepositoryStubImpl;
-import com.chersoft.simplenotes.presentation.presenters.NoteActivityPresenter;
+import com.chersoft.simplenotes.domain.NoteRepositoryImpl;
 
 import javax.inject.Singleton;
 
@@ -15,6 +16,12 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
+    private Context applicationContext;
+
+    public MainModule(Context applicationContext){
+        this.applicationContext = applicationContext;
+    }
+
     @Singleton
     @Provides
     NoteInfoRepository provideRepository(){
@@ -24,6 +31,11 @@ public class MainModule {
     @Singleton
     @Provides
     NoteRepository provideNoteRepository(){
-        return new NoteRepositoryStubImpl();
+        return new NoteRepositoryImpl(applicationContext);
+    }
+
+    @Provides
+    Context provideContext(){
+        return applicationContext;
     }
 }
