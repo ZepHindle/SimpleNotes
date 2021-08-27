@@ -1,45 +1,37 @@
-package com.chersoft.simplenotes.domain;
+package com.chersoft.simplenotes.presentation.viewmodels;
 
 import androidx.annotation.Nullable;
 
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfoRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
-public class NoteInfoRepositoryStubImpl implements NoteInfoRepository {
+public class NotesListViewModel {
 
     private ArrayList<NoteInfoModel> notes = new ArrayList<>();
 
-    @Override
     public int getCount() {
         return notes.size();
     }
 
-    @Override
     public NoteInfoModel getByIndex(int index) {
         return notes.get(index);
     }
 
-    @Override
     public int findIndex(NoteInfoModel model) {
         return notes.indexOf(model);
     }
 
-    @Override
     public void removeByIndex(int index) {
         notes.remove(index);
     }
 
-    @Override
     public int add(NoteInfoModel model) {
         notes.add(0, model);
         return 0;//findIndex(model);
     }
 
-    @Override
     public boolean containsName(String name) {
         for (NoteInfoModel model : notes){
             if (model.getName().equals(name)) {
@@ -50,7 +42,6 @@ public class NoteInfoRepositoryStubImpl implements NoteInfoRepository {
     }
 
     @Nullable
-    @Override
     public NoteInfoModel findByName(String name) {
         for (NoteInfoModel model : notes){
             if (model.getName().equals(name)) {
@@ -59,4 +50,22 @@ public class NoteInfoRepositoryStubImpl implements NoteInfoRepository {
         }
         return null;
     }
+
+    public void setNotes(ArrayList<NoteInfoModel> notes) {
+        this.notes = notes;
+    }
+
+    public ArrayList<NoteInfoModel> getNotes() {
+        return notes;
+    }
+
+    /*
+    public void loadFromRepository(NoteInfoRepository repository){
+        notes = new ArrayList<>(repository.load());
+    }
+
+    public void saveToRepository(NoteInfoRepository repository){
+        repository.save(notes);
+    }
+    */
 }

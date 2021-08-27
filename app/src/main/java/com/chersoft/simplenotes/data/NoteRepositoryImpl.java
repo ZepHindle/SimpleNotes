@@ -1,10 +1,11 @@
-package com.chersoft.simplenotes.domain;
+package com.chersoft.simplenotes.data;
 
 import android.content.Context;
 
 import androidx.annotation.Nullable;
 
 import com.chersoft.simplenotes.data.NoteModel;
+import com.chersoft.simplenotes.domain.NoteRepository;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

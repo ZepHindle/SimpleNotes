@@ -6,6 +6,7 @@ import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.presentation.NotesListView;
+import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
 import com.chersoft.simplenotes.utils.NoteNameValidation;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ public class NotesListPresenter {
 
     @Inject
     NoteInfoRepository repository;
+    @Inject
+    NotesListViewModel viewModel;
 
     public NotesListPresenter(NotesListView view){
         this.view = view;
@@ -34,11 +37,13 @@ public class NotesListPresenter {
     // методы для вызова из NotesListActivity
 
     public void onCreate(){
-
+        // TODO: repository: load
+        //viewModel.loadFromRepository(repository);
     }
 
     public void onStop(){
-
+        // TODO: repository: save
+        //viewModel.saveToRepository(repository);
     }
 
     public void onMainMenuAddNote(){
@@ -46,24 +51,24 @@ public class NotesListPresenter {
     }
 
     public boolean onNoteContainsName(String noteName){
-        return repository.containsName(noteName);
+        return viewModel.containsName(noteName);
     }
 
     public void onNewNoteDialogDismiss(@Nullable String noteName){
         if (noteName == null) return;
         // добавляем новую заметку
-        int index = repository.add(new NoteInfoModel(noteName, new Date()));
+        int index = viewModel.add(new NoteInfoModel(noteName, new Date().toString()));
         view.addNote(index);
     }
 
     // методы для вызова из адаптера/ItemTouchHelper recycler view
 
     public int onGetCount(){
-        return repository.getCount();
+        return viewModel.getCount();
     }
 
     public NoteInfoModel onGetNoteInfo(int index){
-        return repository.getByIndex(index);
+        return viewModel.getByIndex(index);
     }
 
     public void onContextMenuEdit(NoteInfoModel model){
@@ -85,9 +90,9 @@ public class NotesListPresenter {
 
 
     private void removeNote(NoteInfoModel model){
-        int index = repository.findIndex(model);
+        int index = viewModel.findIndex(model);
         if (index < 0) return;
-        repository.removeByIndex(index);
+        viewModel.removeByIndex(index);
         view.removeNote(index);
     }
 }

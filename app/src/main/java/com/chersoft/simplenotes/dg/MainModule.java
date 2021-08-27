@@ -2,10 +2,11 @@ package com.chersoft.simplenotes.dg;
 
 import android.content.Context;
 
+import com.chersoft.simplenotes.data.NoteInfoRepositoryImpl;
+import com.chersoft.simplenotes.data.NoteRepositoryImpl;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
-import com.chersoft.simplenotes.domain.NoteInfoRepositoryStubImpl;
 import com.chersoft.simplenotes.domain.NoteRepository;
-import com.chersoft.simplenotes.domain.NoteRepositoryImpl;
+import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
 
 import javax.inject.Singleton;
 
@@ -25,7 +26,13 @@ public class MainModule {
     @Singleton
     @Provides
     NoteInfoRepository provideRepository(){
-        return new NoteInfoRepositoryStubImpl();
+        return new NoteInfoRepositoryImpl(applicationContext);
+    }
+
+    @Singleton
+    @Provides
+    NotesListViewModel provideNotesListViewModel(){
+        return new NotesListViewModel();
     }
 
     @Singleton

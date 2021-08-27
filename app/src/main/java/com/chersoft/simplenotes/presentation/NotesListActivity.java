@@ -43,6 +43,12 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        getPresenter().onStop();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater =getMenuInflater();
         inflater.inflate(R.menu.notes_list_main_menu, menu);

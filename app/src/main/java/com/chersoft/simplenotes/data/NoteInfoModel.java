@@ -1,24 +1,25 @@
 package com.chersoft.simplenotes.data;
 
-import com.chersoft.simplenotes.utils.ColorTable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Random;
 
+import static com.chersoft.simplenotes.data.NoteInfoModel.TABLE_NAME;
+
+@Entity(tableName = TABLE_NAME)
 public class NoteInfoModel implements Serializable {
-    private String name;
-    private Date date;
-    private int colorIndex; // индекс цвета в таблице цветов
 
-    //TODO: remove stub constructor
-    public NoteInfoModel(){
-        this.name = "note" + new Random().nextInt();
-        this.date = new Date();
-        this.colorIndex = Math.abs((new Random().nextInt())% ColorTable.getTableSize());
-    }
+    public static final String TABLE_NAME = "notes_info";
 
-    public NoteInfoModel(String name, Date date){
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public String name;
+    public String date;
+    public int colorIndex; // индекс цвета в таблице цветов
+
+    public NoteInfoModel(String name, String date){
         this.name = name;
         this.date = date;
         this.colorIndex = 0;
@@ -28,7 +29,7 @@ public class NoteInfoModel implements Serializable {
         return name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
