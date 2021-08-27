@@ -114,6 +114,10 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         recyclerView.getAdapter().notifyItemChanged(index);
     }
 
+    @Override
+    public void updateNotes() {
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
 
     @Override
     public void showNewNoteDialog() {

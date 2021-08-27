@@ -16,4 +16,6 @@ public interface NotesInfoDao {
     @Query("SELECT * FROM notes_info")
     List<NoteInfoModel> getAll();
 
+    @Query("DELETE FROM notes_info")
+    void deleteAll();
 }

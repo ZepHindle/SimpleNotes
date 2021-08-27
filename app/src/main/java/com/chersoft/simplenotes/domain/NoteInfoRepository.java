@@ -4,8 +4,10 @@ import com.chersoft.simplenotes.data.NoteInfoModel;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+
 public interface NoteInfoRepository {
-    // TODO: сделать, чтобы возвращались Observable
-    void save(List<NoteInfoModel> models);
-    List<NoteInfoModel> load();
+    Completable save(List<NoteInfoModel> models);
+    Observable<List<NoteInfoModel>> load();
 }

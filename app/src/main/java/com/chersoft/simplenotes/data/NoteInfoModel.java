@@ -1,5 +1,6 @@
 package com.chersoft.simplenotes.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -13,8 +14,8 @@ public class NoteInfoModel implements Serializable {
 
     public static final String TABLE_NAME = "notes_info";
 
-    @PrimaryKey(autoGenerate = true)
-    public int id;
+    @PrimaryKey
+    @NonNull
     public String name;
     public String date;
     public int colorIndex; // индекс цвета в таблице цветов

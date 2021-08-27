@@ -58,14 +58,4 @@ public class NotesListViewModel {
     public ArrayList<NoteInfoModel> getNotes() {
         return notes;
     }
-
-    /*
-    public void loadFromRepository(NoteInfoRepository repository){
-        notes = new ArrayList<>(repository.load());
-    }
-
-    public void saveToRepository(NoteInfoRepository repository){
-        repository.save(notes);
-    }
-    */
 }

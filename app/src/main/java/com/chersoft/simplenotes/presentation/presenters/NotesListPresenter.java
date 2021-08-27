@@ -9,11 +9,23 @@ import com.chersoft.simplenotes.presentation.NotesListView;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
 import com.chersoft.simplenotes.utils.NoteNameValidation;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.CompletableObserver;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.subscribers.BlockingBaseSubscriber;
+import io.reactivex.schedulers.Schedulers;
+
 public class NotesListPresenter {
+
+    // TODO: индектнуть сюда NoteRepository и удалять/переименовывать файлы с самим заметками при необходимости
 
     private final NotesListView view;
 
@@ -37,13 +49,43 @@ public class NotesListPresenter {
     // методы для вызова из NotesListActivity
 
     public void onCreate(){
-        // TODO: repository: load
-        //viewModel.loadFromRepository(repository);
+        repository.load()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<NoteInfoModel>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {}
+
+                    @Override
+                    public void onNext(@NonNull List<NoteInfoModel> models) {
+                        viewModel.setNotes(new ArrayList<>(models));
+                        view.updateNotes();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {}
+
+                    @Override
+                    public void onComplete() {}
+                });
     }
 
     public void onStop(){
-        // TODO: repository: save
-        //viewModel.saveToRepository(repository);
+        repository.save(viewModel.getNotes())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {}
+
+                    @Override
+                    public void onComplete() {}
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        view.showToast(R.string.fail_write_to_db);
+                    }
+                });
     }
 
     public void onMainMenuAddNote(){
