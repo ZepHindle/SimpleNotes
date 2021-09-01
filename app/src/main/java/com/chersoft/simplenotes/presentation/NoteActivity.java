@@ -13,22 +13,24 @@ import android.widget.EditText;
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.presentation.fragments.NoteExitDialog;
-import com.chersoft.simplenotes.presentation.presenters.NoteActivityPresenter;
+import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
+
+import javax.inject.Inject;
 
 public class NoteActivity extends AppCompatActivity implements NoteView {
 
     private static final String EXTRA_NOTE_INFO_MODEL = "com.chersoft.extraNoteInfoModel";
 
+    @Inject
+    NotePresenter presenter;
     private boolean firstTextWatcherCall;
-    private NoteActivityPresenter presenter;
     private EditText noteEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ((MainApplication) getApplicationContext()).mainComponent.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-
-        presenter = new NoteActivityPresenter();
 
         noteEditText = findViewById(R.id.note_text_edit);
         noteEditText.addTextChangedListener(new TextWatcher() {
@@ -49,9 +51,6 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         });
 
         firstTextWatcherCall = true;
-
-        ((MainApplication)getApplicationContext()).mainComponent.inject(presenter);
-
         NoteInfoModel noteInfoModel = (NoteInfoModel) getIntent().getSerializableExtra(EXTRA_NOTE_INFO_MODEL);
         presenter.onCreate(this, noteInfoModel);
     }

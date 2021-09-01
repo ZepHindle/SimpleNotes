@@ -18,8 +18,6 @@ import java.io.Serializable;
 
 public class NoteViewModel implements Serializable {
 
-    private static final String FILE_NAME = "cache.bin";
-
     private boolean hasChanges = false;
     private NoteModel noteModel = new NoteModel();
 
@@ -41,41 +39,5 @@ public class NoteViewModel implements Serializable {
 
     public void setHasChanges(boolean hasChanges) {
         this.hasChanges = hasChanges;
-    }
-
-    private static NoteViewModel instance;
-
-    public static NoteViewModel load(NoteRepository noteInfoRepository, NoteInfoModel noteModel, Context context){
-
-        if (instance != null) return instance;
-
-        // пробуем взять из файла
-        try (InputStream in = context.openFileInput(FILE_NAME);
-             ObjectInputStream objIn = new ObjectInputStream(in)) {
-            instance = (NoteViewModel) objIn.readObject();
-        } catch (IOException | ClassNotFoundException ex){}
-
-        // загружаем из репозитория
-        NoteModel tmpNoteModel = noteInfoRepository.getByName(noteModel.getName());
-
-        instance = new NoteViewModel();
-
-        if (tmpNoteModel != null)
-            instance.setText(tmpNoteModel.getText());
-
-        return instance;
-    }
-
-    public static void save(Context context){
-        try (OutputStream outputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-             ObjectOutputStream objOut = new ObjectOutputStream(outputStream)) {
-            objOut.writeObject(instance);
-        } catch (IOException ex){}
-    }
-
-    public static void remove(Context context){
-        File file = context.getFileStreamPath(FILE_NAME);
-        file.delete();
-        instance = null;
     }
 }

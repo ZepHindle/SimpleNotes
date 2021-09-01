@@ -5,7 +5,11 @@ import android.content.Context;
 import com.chersoft.simplenotes.data.NoteInfoRepositoryImpl;
 import com.chersoft.simplenotes.data.NoteRepositoryImpl;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
+import com.chersoft.simplenotes.domain.NoteInteractor;
 import com.chersoft.simplenotes.domain.NoteRepository;
+import com.chersoft.simplenotes.domain.NotesListInteractor;
+import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
+import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
 
 import javax.inject.Singleton;
@@ -17,7 +21,7 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
-    private Context applicationContext;
+    private final Context applicationContext;
 
     public MainModule(Context applicationContext){
         this.applicationContext = applicationContext;
@@ -25,8 +29,14 @@ public class MainModule {
 
     @Singleton
     @Provides
-    NoteInfoRepository provideRepository(){
+    NoteInfoRepository provideNoteInfoRepository(){
         return new NoteInfoRepositoryImpl(applicationContext);
+    }
+
+    @Singleton
+    @Provides
+    NoteRepository provideNoteRepository(){
+        return new NoteRepositoryImpl(applicationContext);
     }
 
     @Singleton
@@ -35,10 +45,24 @@ public class MainModule {
         return new NotesListViewModel();
     }
 
-    @Singleton
     @Provides
-    NoteRepository provideNoteRepository(){
-        return new NoteRepositoryImpl(applicationContext);
+    NotesListInteractor provideNotesListInteractor(NoteInfoRepository noteInfoRepository, NoteRepository noteRepository){
+        return new NotesListInteractor(noteInfoRepository, noteRepository);
+    }
+
+    @Provides
+    NotesListPresenter provideNotesListPresenter(NotesListInteractor interactor, NotesListViewModel viewModel){
+        return new NotesListPresenter(interactor, viewModel);
+    }
+
+    @Provides
+    NoteInteractor provideNoteInteractor(NoteRepository noteRepository){
+        return new NoteInteractor(noteRepository, applicationContext);
+    }
+
+    @Provides
+    NotePresenter provideNotePresenter(NoteInteractor noteInteractor){
+        return new NotePresenter(noteInteractor);
     }
 
     @Provides

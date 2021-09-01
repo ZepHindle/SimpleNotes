@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
+import com.chersoft.simplenotes.domain.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.NotesListView;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
 import com.chersoft.simplenotes.utils.NoteNameValidation;
@@ -25,31 +26,24 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NotesListPresenter {
 
-    // TODO: индектнуть сюда NoteRepository и удалять/переименовывать файлы с самим заметками при необходимости
+    private NotesListView view;
+    private NotesListInteractor interactor;
+    private NotesListViewModel viewModel;
 
-    private final NotesListView view;
-
-    @Inject
-    NoteInfoRepository repository;
-    @Inject
-    NotesListViewModel viewModel;
-
-    public NotesListPresenter(NotesListView view){
-        this.view = view;
+    public NotesListPresenter(NotesListInteractor interactor, NotesListViewModel viewModel){
+        this.interactor = interactor;
+        this.viewModel = viewModel;
     }
 
     protected NotesListView getView(){
         return view;
     }
 
-    protected NoteInfoRepository getRepository() {
-        return repository;
-    }
-
     // методы для вызова из NotesListActivity
 
-    public void onCreate(){
-        repository.load()
+    public void onCreate(NotesListView view){
+        this.view = view;
+        interactor.load()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<NoteInfoModel>>() {
@@ -71,7 +65,7 @@ public class NotesListPresenter {
     }
 
     public void onStop(){
-        repository.save(viewModel.getNotes())
+        interactor.save(viewModel.getNotes())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
@@ -135,6 +129,7 @@ public class NotesListPresenter {
         int index = viewModel.findIndex(model);
         if (index < 0) return;
         viewModel.removeByIndex(index);
+        interactor.removeNote(model);
         view.removeNote(index);
     }
 }

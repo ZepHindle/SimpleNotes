@@ -1,4 +1,4 @@
-package com.chersoft.simplenotes.utils;
+package com.chersoft.simplenotes.presentation.utils;
 
 import android.graphics.Color;
 

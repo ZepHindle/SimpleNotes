@@ -21,25 +21,27 @@ import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
 import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 
+import javax.inject.Inject;
+
 public class NotesListActivity extends AppCompatActivity implements NotesListView{
 
     private static final String NEW_NOTE_DIALOG_TAG = "com.chersoft.newNoteDialogTag";
 
-    private NotesListPresenter presenter;
+    @Inject
+    NotesListPresenter presenter;
     private RecyclerView recyclerView;
 
     // инициализация
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ((MainApplication)getApplicationContext()).mainComponent.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //NoteInfoRepository repository = DomainSingleton.get().getRepository();
-        presenter = new NotesListPresenter(this);
-        ((MainApplication)getApplicationContext()).mainComponent.inject(presenter);
         setUpUI();
-        presenter.onCreate();
+        presenter.onCreate(this);
     }
 
     @Override

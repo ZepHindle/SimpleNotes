@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.chersoft.simplenotes.data.NoteModel;
 import com.chersoft.simplenotes.domain.NoteRepository;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,5 +41,11 @@ public class NoteRepositoryImpl implements NoteRepository {
              ObjectOutputStream objOut = new ObjectOutputStream(out)){
             objOut.writeObject(noteModel);
         } catch (IOException ex){}
+    }
+
+    @Override
+    public void remove(String name) {
+        File file = applicationContext.getFileStreamPath(name + FILE_EXT);
+        file.delete();
     }
 }

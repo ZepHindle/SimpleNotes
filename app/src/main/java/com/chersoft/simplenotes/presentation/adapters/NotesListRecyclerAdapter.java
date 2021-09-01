@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
-import com.chersoft.simplenotes.utils.ColorTable;
+import com.chersoft.simplenotes.presentation.utils.ColorTable;
 
 public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecyclerAdapter.NotesListViewHolder>{
 
