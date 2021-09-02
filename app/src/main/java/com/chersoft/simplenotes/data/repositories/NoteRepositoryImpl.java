@@ -1,11 +1,11 @@
-package com.chersoft.simplenotes.data;
+package com.chersoft.simplenotes.data.repositories;
 
 import android.content.Context;
 
 import androidx.annotation.Nullable;
 
-import com.chersoft.simplenotes.data.NoteModel;
-import com.chersoft.simplenotes.domain.NoteRepository;
+import com.chersoft.simplenotes.data.models.NoteModel;
+import com.chersoft.simplenotes.domain.repositories.NoteRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +18,7 @@ public class NoteRepositoryImpl implements NoteRepository {
 
     private static final String FILE_EXT = ".note";
 
-    private Context applicationContext;
+    private final Context applicationContext;
 
     public NoteRepositoryImpl(Context applicationContext){
         this.applicationContext = applicationContext;

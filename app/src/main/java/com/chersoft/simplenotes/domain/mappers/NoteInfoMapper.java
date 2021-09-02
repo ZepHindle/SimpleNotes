@@ -1,10 +1,9 @@
 package com.chersoft.simplenotes.domain.mappers;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.NoteInfo;
+import com.chersoft.simplenotes.data.models.NoteInfoModel;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class NoteInfoMapper {

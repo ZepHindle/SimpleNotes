@@ -1,17 +1,13 @@
-package com.chersoft.simplenotes.data;
+package com.chersoft.simplenotes.data.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import static com.chersoft.simplenotes.data.NoteInfoModel.TABLE_NAME;
+import static com.chersoft.simplenotes.data.models.NoteInfoModel.TABLE_NAME;
 
 @Entity(tableName = TABLE_NAME)
-public class NoteInfoModel implements Serializable {
+public class NoteInfoModel {
 
     public static final String TABLE_NAME = "notes_info";
 

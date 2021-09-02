@@ -1,8 +1,8 @@
-package com.chersoft.simplenotes.domain;
+package com.chersoft.simplenotes.domain.repositories;
 
 import androidx.annotation.Nullable;
 
-import com.chersoft.simplenotes.data.NoteModel;
+import com.chersoft.simplenotes.data.models.NoteModel;
 
 public interface NoteRepository {
     @Nullable NoteModel getByName(String name);

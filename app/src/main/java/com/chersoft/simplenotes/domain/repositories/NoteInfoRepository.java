@@ -1,6 +1,6 @@
-package com.chersoft.simplenotes.domain;
+package com.chersoft.simplenotes.domain.repositories;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.data.models.NoteInfoModel;
 
 import java.util.List;
 

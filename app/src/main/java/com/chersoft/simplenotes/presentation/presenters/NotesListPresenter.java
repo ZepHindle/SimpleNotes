@@ -3,26 +3,20 @@ package com.chersoft.simplenotes.presentation.presenters;
 import androidx.annotation.Nullable;
 
 import com.chersoft.simplenotes.R;
-import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.NoteInfo;
-import com.chersoft.simplenotes.domain.NoteInfoRepository;
-import com.chersoft.simplenotes.domain.NotesListInteractor;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
+import com.chersoft.simplenotes.domain.interactors.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.NotesListView;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
-import com.chersoft.simplenotes.utils.NoteNameValidation;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.subscribers.BlockingBaseSubscriber;
 import io.reactivex.schedulers.Schedulers;
 
 public class NotesListPresenter {

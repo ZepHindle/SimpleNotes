@@ -11,8 +11,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.chersoft.simplenotes.R;
-import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.NoteInfo;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.presentation.fragments.NoteExitDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
 

@@ -1,6 +1,9 @@
-package com.chersoft.simplenotes.domain;
+package com.chersoft.simplenotes.domain.interactors;
 
+import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.domain.mappers.NoteInfoMapper;
+import com.chersoft.simplenotes.domain.repositories.NoteInfoRepository;
+import com.chersoft.simplenotes.domain.repositories.NoteRepository;
 
 import java.util.List;
 

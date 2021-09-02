@@ -1,10 +1,13 @@
-package com.chersoft.simplenotes.data;
+package com.chersoft.simplenotes.data.repositories;
 
 import android.content.Context;
 
 import androidx.room.Room;
 
-import com.chersoft.simplenotes.domain.NoteInfoRepository;
+import com.chersoft.simplenotes.data.db.NoteInfoDb;
+import com.chersoft.simplenotes.data.models.NoteInfoModel;
+import com.chersoft.simplenotes.data.db.NotesInfoDao;
+import com.chersoft.simplenotes.domain.repositories.NoteInfoRepository;
 
 import java.util.List;
 import java.util.concurrent.Callable;

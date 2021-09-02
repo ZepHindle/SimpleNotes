@@ -2,9 +2,7 @@ package com.chersoft.simplenotes.presentation.viewmodels;
 
 import androidx.annotation.Nullable;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.NoteInfo;
-import com.chersoft.simplenotes.domain.NoteInfoRepository;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
 
 import java.util.ArrayList;
 

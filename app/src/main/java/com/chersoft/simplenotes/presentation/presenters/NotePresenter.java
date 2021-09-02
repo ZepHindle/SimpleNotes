@@ -1,9 +1,7 @@
 package com.chersoft.simplenotes.presentation.presenters;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
-import com.chersoft.simplenotes.domain.NoteInfo;
-import com.chersoft.simplenotes.domain.NoteInteractor;
-import com.chersoft.simplenotes.domain.NoteRepository;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
+import com.chersoft.simplenotes.domain.interactors.NoteInteractor;
 import com.chersoft.simplenotes.presentation.NoteView;
 import com.chersoft.simplenotes.presentation.viewmodels.NoteViewModel;
 import com.chersoft.simplenotes.presentation.viewmodels.NoteViewModelManager;
@@ -44,6 +42,10 @@ public class NotePresenter {
         }
     }
 
+    /**
+     * Вызывается, когда пользователь выбрал сохранить/не сохранять в диалоге.
+     * @param needSave нужно ли сохранить заметку
+     */
     public void onChooseSave(boolean needSave){
         if (needSave){
             interactor.setByName(noteInfo.getName(), noteViewModel.getNoteModel());

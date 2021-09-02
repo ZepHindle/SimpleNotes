@@ -1,4 +1,4 @@
-package com.chersoft.simplenotes.dg;
+package com.chersoft.simplenotes.di;
 
 import com.chersoft.simplenotes.presentation.NoteActivity;
 import com.chersoft.simplenotes.presentation.NotesListActivity;

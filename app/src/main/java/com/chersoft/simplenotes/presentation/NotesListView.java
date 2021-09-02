@@ -1,6 +1,6 @@
 package com.chersoft.simplenotes.presentation;
 
-import com.chersoft.simplenotes.domain.NoteInfo;
+import com.chersoft.simplenotes.domain.models.NoteInfo;
 
 public interface NotesListView {
     void addNote(int index);

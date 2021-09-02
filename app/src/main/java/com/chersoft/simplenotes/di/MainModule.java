@@ -1,13 +1,13 @@
-package com.chersoft.simplenotes.dg;
+package com.chersoft.simplenotes.di;
 
 import android.content.Context;
 
-import com.chersoft.simplenotes.data.NoteInfoRepositoryImpl;
-import com.chersoft.simplenotes.data.NoteRepositoryImpl;
-import com.chersoft.simplenotes.domain.NoteInfoRepository;
-import com.chersoft.simplenotes.domain.NoteInteractor;
-import com.chersoft.simplenotes.domain.NoteRepository;
-import com.chersoft.simplenotes.domain.NotesListInteractor;
+import com.chersoft.simplenotes.data.repositories.NoteInfoRepositoryImpl;
+import com.chersoft.simplenotes.data.repositories.NoteRepositoryImpl;
+import com.chersoft.simplenotes.domain.repositories.NoteInfoRepository;
+import com.chersoft.simplenotes.domain.interactors.NoteInteractor;
+import com.chersoft.simplenotes.domain.repositories.NoteRepository;
+import com.chersoft.simplenotes.domain.interactors.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;

@@ -1,9 +1,11 @@
-package com.chersoft.simplenotes.data;
+package com.chersoft.simplenotes.data.db;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
+import com.chersoft.simplenotes.data.models.NoteInfoModel;
 
 import java.util.List;
 

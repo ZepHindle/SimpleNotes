@@ -1,4 +1,4 @@
-package com.chersoft.simplenotes.data;
+package com.chersoft.simplenotes.data.models;
 
 import java.io.Serializable;
 
