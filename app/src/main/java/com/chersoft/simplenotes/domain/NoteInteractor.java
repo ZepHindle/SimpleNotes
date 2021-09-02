@@ -11,8 +11,8 @@ import javax.inject.Inject;
 
 public class NoteInteractor {
 
-    private NoteRepository noteRepository;
-    private Context applicationContext;
+    private final NoteRepository noteRepository;
+    private final Context applicationContext;
 
     @Inject
     public NoteInteractor(NoteRepository noteRepository, Context applicationContext){
@@ -20,8 +20,8 @@ public class NoteInteractor {
         this.applicationContext = applicationContext;
     }
 
-    public NoteViewModel loadViewModel(NoteInfoModel noteInfoModel){
-        return NoteViewModelManager.load(noteRepository, noteInfoModel, applicationContext);
+    public NoteViewModel loadViewModel(NoteInfo noteInfo){
+        return NoteViewModelManager.load(noteRepository, noteInfo, applicationContext);
     }
 
     public void setByName(String name, NoteModel noteModel){

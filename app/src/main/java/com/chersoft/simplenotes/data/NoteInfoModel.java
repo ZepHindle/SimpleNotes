@@ -2,6 +2,7 @@ package com.chersoft.simplenotes.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -20,10 +21,10 @@ public class NoteInfoModel implements Serializable {
     public String date;
     public int colorIndex; // индекс цвета в таблице цветов
 
-    public NoteInfoModel(String name, String date){
+    public NoteInfoModel(String name, String date, int colorIndex){
         this.name = name;
         this.date = date;
-        this.colorIndex = 0;
+        this.colorIndex = colorIndex;
     }
 
     public String getName() {

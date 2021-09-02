@@ -1,6 +1,7 @@
 package com.chersoft.simplenotes.presentation.presenters;
 
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.domain.NoteInteractor;
 import com.chersoft.simplenotes.domain.NoteRepository;
 import com.chersoft.simplenotes.presentation.NoteView;
@@ -15,18 +16,18 @@ public class NotePresenter {
 
     private NoteView noteView;
     private NoteViewModel noteViewModel;
-    private NoteInfoModel noteInfoModel;
+    private NoteInfo noteInfo;
 
     @Inject
     public NotePresenter(NoteInteractor noteInteractor){
         this.interactor = noteInteractor;
     }
 
-    public void onCreate(NoteView noteView, NoteInfoModel noteInfoModel){
+    public void onCreate(NoteView noteView, NoteInfo noteInfo){
         this.noteView = noteView;
-        this.noteViewModel = interactor.loadViewModel(noteInfoModel);
-        this.noteInfoModel = noteInfoModel;
-        noteView.setViewTitle(noteInfoModel.getName());
+        this.noteViewModel = interactor.loadViewModel(noteInfo);
+        this.noteInfo = noteInfo;
+        noteView.setViewTitle(noteInfo.getName());
         noteView.setText(noteViewModel.getText());
     }
 
@@ -45,7 +46,7 @@ public class NotePresenter {
 
     public void onChooseSave(boolean needSave){
         if (needSave){
-            interactor.setByName(noteInfoModel.getName(), noteViewModel.getNoteModel());
+            interactor.setByName(noteInfo.getName(), noteViewModel.getNoteModel());
         }
         NoteViewModelManager.remove(noteView.getContext());
         noteView.close();

@@ -1,6 +1,6 @@
 package com.chersoft.simplenotes.domain;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.mappers.NoteInfoMapper;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 public class NotesListInteractor {
-    private NoteInfoRepository noteInfoRepository;
-    private NoteRepository noteRepository;
+    private final NoteInfoRepository noteInfoRepository;
+    private final NoteRepository noteRepository;
 
     @Inject
     public NotesListInteractor(NoteInfoRepository noteInfoRepository, NoteRepository noteRepository){
@@ -19,15 +19,15 @@ public class NotesListInteractor {
         this.noteRepository = noteRepository;
     }
 
-    public Completable save(List<NoteInfoModel> models){
-        return noteInfoRepository.save(models);
+    public Completable save(List<NoteInfo> noteInfos){
+        return noteInfoRepository.save(NoteInfoMapper.reverseList(noteInfos));
     }
 
-    public Observable<List<NoteInfoModel>> load(){
-        return noteInfoRepository.load();
+    public Observable<List<NoteInfo>> load(){
+        return noteInfoRepository.load().map(NoteInfoMapper::mapList);
     }
 
-    public void removeNote(NoteInfoModel note){
+    public void removeNote(NoteInfo note){
         noteRepository.remove(note.getName());
     }
 

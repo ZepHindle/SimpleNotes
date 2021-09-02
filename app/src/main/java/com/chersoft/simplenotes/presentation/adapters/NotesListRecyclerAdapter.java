@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 import com.chersoft.simplenotes.presentation.utils.ColorTable;
 
@@ -43,7 +44,7 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
 
     public class NotesListViewHolder extends RecyclerView.ViewHolder{
 
-        private NoteInfoModel model;
+        private NoteInfo noteInfo;
         private final TextView nameView;
         private final TextView dateView;
 
@@ -58,9 +59,9 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             menu.setOnMenuItemClickListener( menuItem -> {
                 int id = menuItem.getItemId();
                 if (id == R.id.popupmenu_delete){
-                    NotesListRecyclerAdapter.this.presenter.onContextMenuDelete(getModel());
+                    NotesListRecyclerAdapter.this.presenter.onContextMenuDelete(getNoteInfo());
                 } else if (id == R.id.popupmenu_edit){
-                    NotesListRecyclerAdapter.this.presenter.onContextMenuEdit(getModel());
+                    NotesListRecyclerAdapter.this.presenter.onContextMenuEdit(getNoteInfo());
                 }
                 return false;
             });
@@ -70,19 +71,19 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             });
 
             view.setOnClickListener( v -> {
-                NotesListRecyclerAdapter.this.presenter.onNotePress(getModel());
+                NotesListRecyclerAdapter.this.presenter.onNotePress(getNoteInfo());
             });
         }
 
-        public void bind(NoteInfoModel model){
-            this.model = model;
-            nameView.setText(model.getName());
-            dateView.setText(model.getDate().toString());
-            this.itemView.setBackgroundColor(ColorTable.getColor(model.getColorIndex()));
+        public void bind(NoteInfo noteInfo){
+            this.noteInfo = noteInfo;
+            nameView.setText(noteInfo.getName());
+            dateView.setText(noteInfo.getDate());
+            this.itemView.setBackgroundColor(ColorTable.getColor(noteInfo.getColorIndex()));
         }
 
-        public NoteInfoModel getModel() {
-            return model;
+        public NoteInfo getNoteInfo() {
+            return noteInfo;
         }
     }
 }

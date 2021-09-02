@@ -2,8 +2,8 @@ package com.chersoft.simplenotes.presentation.viewmodels;
 
 import android.content.Context;
 
-import com.chersoft.simplenotes.data.NoteInfoModel;
 import com.chersoft.simplenotes.data.NoteModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.domain.NoteRepository;
 
 import java.io.File;
@@ -19,7 +19,7 @@ public class NoteViewModelManager {
 
     private static NoteViewModel instance;
 
-    public static NoteViewModel load(NoteRepository noteInfoRepository, NoteInfoModel noteModel, Context context){
+    public static NoteViewModel load(NoteRepository noteInfoRepository, NoteInfo noteInfo, Context context){
 
         if (instance != null) return instance;
 
@@ -30,7 +30,7 @@ public class NoteViewModelManager {
         } catch (IOException | ClassNotFoundException ex){}
 
         // загружаем из репозитория
-        NoteModel tmpNoteModel = noteInfoRepository.getByName(noteModel.getName());
+        NoteModel tmpNoteModel = noteInfoRepository.getByName(noteInfo.getName());
 
         instance = new NoteViewModel();
 

@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.presentation.fragments.NoteExitDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
 
@@ -51,8 +52,8 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         });
 
         firstTextWatcherCall = true;
-        NoteInfoModel noteInfoModel = (NoteInfoModel) getIntent().getSerializableExtra(EXTRA_NOTE_INFO_MODEL);
-        presenter.onCreate(this, noteInfoModel);
+        NoteInfo noteInfo = (NoteInfo) getIntent().getSerializableExtra(EXTRA_NOTE_INFO_MODEL);
+        presenter.onCreate(this, noteInfo);
     }
 
     @Override
@@ -100,9 +101,9 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         this.finish();
     }
 
-    public static Intent createIntent(Context context, NoteInfoModel noteInfoModel){
+    public static Intent createIntent(Context context, NoteInfo noteInfo){
         Intent intent = new Intent(context, NoteActivity.class);
-        intent.putExtra(EXTRA_NOTE_INFO_MODEL, noteInfoModel);
+        intent.putExtra(EXTRA_NOTE_INFO_MODEL, noteInfo);
         return intent;
     }
 

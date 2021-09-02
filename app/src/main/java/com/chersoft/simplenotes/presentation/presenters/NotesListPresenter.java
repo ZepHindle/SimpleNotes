@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.domain.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.NotesListView;
@@ -27,8 +28,8 @@ import io.reactivex.schedulers.Schedulers;
 public class NotesListPresenter {
 
     private NotesListView view;
-    private NotesListInteractor interactor;
-    private NotesListViewModel viewModel;
+    private final NotesListInteractor interactor;
+    private final NotesListViewModel viewModel;
 
     public NotesListPresenter(NotesListInteractor interactor, NotesListViewModel viewModel){
         this.interactor = interactor;
@@ -46,12 +47,12 @@ public class NotesListPresenter {
         interactor.load()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<NoteInfoModel>>() {
+                .subscribe(new Observer<List<NoteInfo>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {}
 
                     @Override
-                    public void onNext(@NonNull List<NoteInfoModel> models) {
+                    public void onNext(@NonNull List<NoteInfo> models) {
                         viewModel.setNotes(new ArrayList<>(models));
                         view.updateNotes();
                     }
@@ -93,7 +94,7 @@ public class NotesListPresenter {
     public void onNewNoteDialogDismiss(@Nullable String noteName){
         if (noteName == null) return;
         // добавляем новую заметку
-        int index = viewModel.add(new NoteInfoModel(noteName, new Date().toString()));
+        int index = viewModel.add(new NoteInfo(noteName, new Date().toString()));
         view.addNote(index);
     }
 
@@ -103,29 +104,29 @@ public class NotesListPresenter {
         return viewModel.getCount();
     }
 
-    public NoteInfoModel onGetNoteInfo(int index){
+    public NoteInfo onGetNoteInfo(int index){
         return viewModel.getByIndex(index);
     }
 
-    public void onContextMenuEdit(NoteInfoModel model){
+    public void onContextMenuEdit(NoteInfo noteInfo){
         // TODO: !!!
-        System.out.println("_STUB onContextMenuEdit with model: " + model);
+        System.out.println("_STUB onContextMenuEdit with model: " + noteInfo);
     }
 
-    public void onContextMenuDelete(NoteInfoModel model){
-        removeNote(model);
+    public void onContextMenuDelete(NoteInfo noteInfo){
+        removeNote(noteInfo);
     }
 
-    public void onNoteSwiped(NoteInfoModel model){
-        removeNote(model);
+    public void onNoteSwiped(NoteInfo noteInfo){
+        removeNote(noteInfo);
     }
 
-    public void onNotePress(NoteInfoModel noteInfoModel){
-        getView().startNoteActivity(noteInfoModel);
+    public void onNotePress(NoteInfo noteInfo){
+        getView().startNoteActivity(noteInfo);
     }
 
 
-    private void removeNote(NoteInfoModel model){
+    private void removeNote(NoteInfo model){
         int index = viewModel.findIndex(model);
         if (index < 0) return;
         viewModel.removeByIndex(index);

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chersoft.simplenotes.R;
-import com.chersoft.simplenotes.data.NoteInfoModel;
+import com.chersoft.simplenotes.domain.NoteInfo;
 import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
 import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
@@ -70,7 +70,7 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 NotesListRecyclerAdapter.NotesListViewHolder vh = (NotesListRecyclerAdapter.NotesListViewHolder) viewHolder;
-                presenter.onNoteSwiped(vh.getModel());
+                presenter.onNoteSwiped(vh.getNoteInfo());
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -129,8 +129,8 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     }
 
     @Override
-    public void startNoteActivity(NoteInfoModel noteInfoModel) {
-        Intent intent = NoteActivity.createIntent(this, noteInfoModel);
+    public void startNoteActivity(NoteInfo noteInfo) {
+        Intent intent = NoteActivity.createIntent(this, noteInfo);
         startActivity(intent);
     }
 
