@@ -19,6 +19,7 @@ import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
 import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
+import com.chersoft.simplenotes.presentation.fragments.RenameNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 
 import javax.inject.Inject;
@@ -26,12 +27,11 @@ import javax.inject.Inject;
 public class NotesListActivity extends AppCompatActivity implements NotesListView{
 
     private static final String NEW_NOTE_DIALOG_TAG = "com.chersoft.newNoteDialogTag";
+    private static final String RENAME_NOTE_DIALOG_TAG = "com.cherspft.renameDialogTag";
 
     @Inject
     NotesListPresenter presenter;
     private RecyclerView recyclerView;
-
-    // инициализация
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +83,20 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     // методы меню, диалогов и т.д.
 
     /**
-     * Вызывается при завершении диалога.
+     * Вызывается при завершении диалога создания новой хаметки.
      * @param noteName имя для новой заметки или null, если пользователь ввел некорректное имя
      */
     public void onNewNoteDialogDismiss(@Nullable String noteName){
         presenter.onNewNoteDialogDismiss(noteName);
+    }
+
+    /**
+     * Вызывается при завершении диалога переименования заметки.
+     * @param oldName старое имя заметки
+     * @param newName новое имя заметки
+     */
+    public void onRenameNoteDialogDismiss(String oldName, @Nullable String newName){
+        presenter.onRenameNoteDialogDismiss(oldName, newName);
     }
 
     @Override
@@ -126,6 +135,13 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         FragmentManager fm = getSupportFragmentManager();
         NewNoteDialog dialog = new NewNoteDialog();
         dialog.show(fm, NEW_NOTE_DIALOG_TAG);
+    }
+
+    @Override
+    public void showRenameNoteDialog(NoteInfo noteInfo) {
+        FragmentManager fm = getSupportFragmentManager();
+        RenameNoteDialog dialog = RenameNoteDialog.newInstance(noteInfo);
+        dialog.show(fm, RENAME_NOTE_DIALOG_TAG);
     }
 
     @Override

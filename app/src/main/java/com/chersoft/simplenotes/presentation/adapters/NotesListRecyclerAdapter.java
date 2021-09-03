@@ -61,6 +61,8 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
                     NotesListRecyclerAdapter.this.presenter.onContextMenuDelete(getNoteInfo());
                 } else if (id == R.id.popupmenu_edit){
                     NotesListRecyclerAdapter.this.presenter.onContextMenuEdit(getNoteInfo());
+                } else if (id == R.id.popupmenu_remane){
+                    NotesListRecyclerAdapter.this.presenter.onContextMenuRename(getNoteInfo());
                 }
                 return false;
             });

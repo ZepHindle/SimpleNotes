@@ -8,5 +8,5 @@ public interface NoteRepository {
     @Nullable NoteModel getByName(String name);
     void setByName(String name, NoteModel noteModel);
     void remove(String name);
-    // TODO: void changeName(String oldName, String newName);
+    void changeName(String oldName, String newName);
 }

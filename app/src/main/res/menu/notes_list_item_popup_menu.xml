@@ -5,6 +5,11 @@
     <item
         android:id="@+id/popupmenu_edit"
         android:title="@string/popupmenu_edit" />
+
+    <item
+        android:id="@+id/popupmenu_remane"
+        android:title="@string/popupmenu_rename"/>
+
     <item
         android:id="@+id/popupmenu_delete"
         android:title="@string/popupmenu_delete" />

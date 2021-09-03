@@ -40,14 +40,13 @@ public class NotesListViewModel {
         return false;
     }
 
-    @Nullable
-    public NoteInfo findByName(String name) {
-        for (NoteInfo model : notes){
-            if (model.getName().equals(name)) {
-                return model;
+    public int findIndexByName(String name) {
+        for (int i = 0; i<notes.size(); i++){
+            if (notes.get(i).getName().equals(name)){
+                return i;
             }
         }
-        return null;
+        return -1;
     }
 
     public void setNotes(ArrayList<NoteInfo> notes) {

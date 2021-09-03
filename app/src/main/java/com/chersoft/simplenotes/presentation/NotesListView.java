@@ -9,6 +9,7 @@ public interface NotesListView {
     void updateNotes();
 
     void showNewNoteDialog();
+    void showRenameNoteDialog(NoteInfo noteInfo);
     void startNoteActivity(NoteInfo noteInfoModel);
     void showToast(int stringResId);
 }

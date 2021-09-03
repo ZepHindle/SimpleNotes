@@ -92,6 +92,15 @@ public class NotesListPresenter {
         view.addNote(index);
     }
 
+    public void onRenameNoteDialogDismiss(String oldName, @Nullable String newName){
+        if (newName == null) return;
+        int index = viewModel.findIndexByName(oldName);
+        NoteInfo noteInfo = viewModel.getByIndex(index);
+        noteInfo.setName(newName);
+        interactor.changeName(oldName, newName);
+        view.updateNote(index);
+    }
+
     // методы для вызова из адаптера/ItemTouchHelper recycler view
 
     public int onGetCount(){
@@ -105,6 +114,10 @@ public class NotesListPresenter {
     public void onContextMenuEdit(NoteInfo noteInfo){
         // TODO: !!!
         System.out.println("_STUB onContextMenuEdit with model: " + noteInfo);
+    }
+
+    public void onContextMenuRename(NoteInfo noteInfo){
+        view.showRenameNoteDialog(noteInfo);
     }
 
     public void onContextMenuDelete(NoteInfo noteInfo){

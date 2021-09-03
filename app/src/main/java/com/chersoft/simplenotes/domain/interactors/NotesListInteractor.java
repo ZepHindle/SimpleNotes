@@ -34,4 +34,8 @@ public class NotesListInteractor {
         noteRepository.remove(note.getName());
     }
 
+    public void changeName(String oldName, String newName){
+        // менять NoteInfoRepository не нужно т.к. он каждый раз перезаписывается
+        noteRepository.changeName(oldName, newName);
+    }
 }

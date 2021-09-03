@@ -11,6 +11,7 @@ public final class ColorTable {
     private static ArrayList<Integer> colors = new ArrayList<>();
 
     static {
+        colors.add(Color.parseColor("#FFFFFF"));
         colors.add(Color.parseColor("#5e35b1"));
         colors.add(Color.parseColor("#3949ab"));
         colors.add(Color.parseColor("#1e88e5"));

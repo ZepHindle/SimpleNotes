@@ -48,4 +48,10 @@ public class NoteRepositoryImpl implements NoteRepository {
         File file = applicationContext.getFileStreamPath(name + FILE_EXT);
         file.delete();
     }
+
+    @Override
+    public void changeName(String oldName, String newName) {
+        File file = applicationContext.getFileStreamPath(oldName + FILE_EXT);
+        boolean flag = file.renameTo(applicationContext.getFileStreamPath(newName + FILE_EXT));
+    }
 }
