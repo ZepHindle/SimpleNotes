@@ -11,7 +11,7 @@ import androidx.annotation.ColorInt;
 
 import java.util.ArrayList;
 
-public final class NoteViewCustomization {
+public final class ColorTable {
 
     private static final ArrayList<Integer> colors = new ArrayList<>();
 

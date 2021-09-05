@@ -101,6 +101,14 @@ public class NotesListPresenter {
         view.updateNote(index);
     }
 
+    public void onNoteColorDialogDismiss(String oldName, int backgroundColorIndex, int fontColorIndex){
+        int index = viewModel.findIndexByName(oldName);
+        NoteInfo noteInfo = viewModel.getByIndex(index);
+        noteInfo.setBackgroundColorIndex(backgroundColorIndex);
+        noteInfo.setFontColorIndex(fontColorIndex);
+        view.updateNote(index);
+    }
+
     // методы для вызова из адаптера/ItemTouchHelper recycler view
 
     public int onGetCount(){
@@ -112,8 +120,7 @@ public class NotesListPresenter {
     }
 
     public void onContextMenuEdit(NoteInfo noteInfo){
-        // TODO: !!!
-        System.out.println("_STUB onContextMenuEdit with model: " + noteInfo);
+        view.showNoteColorDialog(noteInfo);
     }
 
     public void onContextMenuRename(NoteInfo noteInfo){

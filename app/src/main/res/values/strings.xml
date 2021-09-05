@@ -8,4 +8,6 @@
     <string name="do_you_want_to_save_the_changes">Do you want to save the changes?</string>
     <string name="fail_write_to_db">Save to database failed.</string>
     <string name="popupmenu_rename">rename</string>
+    <string name="note_background_color">Note background color</string>
+    <string name="note_text_color">Note text color</string>
 </resources>

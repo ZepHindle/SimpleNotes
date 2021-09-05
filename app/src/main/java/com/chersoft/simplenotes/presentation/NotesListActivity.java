@@ -19,6 +19,7 @@ import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.presentation.adapters.NotesListRecyclerAdapter;
 import com.chersoft.simplenotes.presentation.fragments.NewNoteDialog;
+import com.chersoft.simplenotes.presentation.fragments.NoteColorDialog;
 import com.chersoft.simplenotes.presentation.fragments.RenameNoteDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 
@@ -27,7 +28,8 @@ import javax.inject.Inject;
 public class NotesListActivity extends AppCompatActivity implements NotesListView{
 
     private static final String NEW_NOTE_DIALOG_TAG = "com.chersoft.newNoteDialogTag";
-    private static final String RENAME_NOTE_DIALOG_TAG = "com.cherspft.renameDialogTag";
+    private static final String RENAME_NOTE_DIALOG_TAG = "com.chersoft.renameDialogTag";
+    private static final String NOTE_COLOR_DIALOG_TAG = "com.chersoft.noteColorDialogTag";
 
     @Inject
     NotesListPresenter presenter;
@@ -98,6 +100,16 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         presenter.onRenameNoteDialogDismiss(oldName, newName);
     }
 
+    /**
+     * Вызывается при завершении диалога изменения цветов заметки.
+     * @param oldName старое имя заметки
+     * @param backgroundColorIndex новый индекс цвета фона в таблице цветов
+     * @param fontColorIndex новаый индекс цвета шрифта в таблицу цветов
+     */
+    public void onNoteColorDialogDismiss(String oldName, int backgroundColorIndex, int fontColorIndex){
+        presenter.onNoteColorDialogDismiss(oldName, backgroundColorIndex, fontColorIndex);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -141,6 +153,13 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         FragmentManager fm = getSupportFragmentManager();
         RenameNoteDialog dialog = RenameNoteDialog.newInstance(noteInfo);
         dialog.show(fm, RENAME_NOTE_DIALOG_TAG);
+    }
+
+    @Override
+    public void showNoteColorDialog(NoteInfo noteInfo) {
+        FragmentManager fm = getSupportFragmentManager();
+        NoteColorDialog dialog = NoteColorDialog.newInstance(noteInfo);
+        dialog.show(fm, NOTE_COLOR_DIALOG_TAG);
     }
 
     @Override

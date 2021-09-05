@@ -14,7 +14,7 @@ import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.presentation.fragments.NoteExitDialog;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
-import com.chersoft.simplenotes.presentation.utils.NoteViewCustomization;
+import com.chersoft.simplenotes.presentation.utils.ColorTable;
 
 import javax.inject.Inject;
 
@@ -56,7 +56,7 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
 
         int backgroundColorIndex = noteInfo.getBackgroundColorIndex();
         int fontColorIndex = noteInfo.getFontColorIndex();
-        NoteViewCustomization.customize(noteEditText, backgroundColorIndex, fontColorIndex);
+        ColorTable.customize(noteEditText, backgroundColorIndex, fontColorIndex);
 
         presenter.onCreate(this, noteInfo);
     }
