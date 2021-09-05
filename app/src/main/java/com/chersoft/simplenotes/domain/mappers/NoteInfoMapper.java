@@ -12,7 +12,8 @@ public class NoteInfoMapper {
         return new NoteInfo(
                 noteInfoModel.getName(),
                 noteInfoModel.getDate(),
-                noteInfoModel.getColorIndex()
+                noteInfoModel.getBackgroundColorIndex(),
+                noteInfoModel.getFontColorIndex()
         );
     }
 
@@ -20,7 +21,8 @@ public class NoteInfoMapper {
         return new NoteInfoModel(
                 noteInfo.getName(),
                 noteInfo.getDate(),
-                noteInfo.getColorIndex()
+                noteInfo.getBackgroundColorIndex(),
+                noteInfo.getFontColorIndex()
         );
     }
 

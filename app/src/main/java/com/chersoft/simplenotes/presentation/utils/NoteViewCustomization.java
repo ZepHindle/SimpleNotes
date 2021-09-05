@@ -1,14 +1,19 @@
 package com.chersoft.simplenotes.presentation.utils;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.fonts.Font;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 
 import java.util.ArrayList;
 
-public final class ColorTable {
+public final class NoteViewCustomization {
 
-    private static ArrayList<Integer> colors = new ArrayList<>();
+    private static final ArrayList<Integer> colors = new ArrayList<>();
 
     static {
         colors.add(Color.parseColor("#FFFFFF"));
@@ -30,5 +35,13 @@ public final class ColorTable {
 
     public static @ColorInt int getColor(int index){
         return colors.get(index);
+    }
+
+    public static void customize(View view, int backgroundColorIndex, int fontColorIndex){
+        view.setBackgroundColor(getColor(backgroundColorIndex));
+        if (view instanceof TextView){
+            TextView textView = (TextView) view;
+            textView.setTextColor(getColor(fontColorIndex));
+        }
     }
 }

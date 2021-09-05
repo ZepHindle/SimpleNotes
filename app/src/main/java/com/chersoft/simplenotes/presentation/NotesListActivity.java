@@ -39,7 +39,6 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //NoteInfoRepository repository = DomainSingleton.get().getRepository();
         setUpUI();
         presenter.onCreate(this);
     }

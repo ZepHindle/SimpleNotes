@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chersoft.simplenotes.R;
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
-import com.chersoft.simplenotes.presentation.utils.ColorTable;
+import com.chersoft.simplenotes.presentation.utils.NoteViewCustomization;
 
 public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecyclerAdapter.NotesListViewHolder>{
 
@@ -80,7 +80,11 @@ public class NotesListRecyclerAdapter extends RecyclerView.Adapter<NotesListRecy
             this.noteInfo = noteInfo;
             nameView.setText(noteInfo.getName());
             dateView.setText(noteInfo.getDate());
-            this.itemView.setBackgroundColor(ColorTable.getColor(noteInfo.getColorIndex()));
+            int backgroundColorIndex = noteInfo.getBackgroundColorIndex();
+            int fontColorIndex = noteInfo.getFontColorIndex();
+            NoteViewCustomization.customize(this.nameView, backgroundColorIndex, fontColorIndex);
+            NoteViewCustomization.customize(this.dateView, backgroundColorIndex, fontColorIndex);
+            NoteViewCustomization.customize(this.itemView, backgroundColorIndex, fontColorIndex);
         }
 
         public NoteInfo getNoteInfo() {

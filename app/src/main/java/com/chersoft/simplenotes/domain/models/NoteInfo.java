@@ -5,18 +5,22 @@ import java.io.Serializable;
 public class NoteInfo implements Serializable {
     private String name;
     private String date;
-    private int colorIndex; // индекс цвета в таблице цветов
+    private int backgroundColorIndex; // индекс цвета фона в таблице цветов
+    private int fontColorIndex; // индекс цвета шрифта в табоице цветов
 
-    public NoteInfo(String name, String date, int colorIndex) {
+
+    public NoteInfo(String name, String date, int backgroundColorIndex, int fontColorIndex) {
         this.name = name;
         this.date = date;
-        this.colorIndex = colorIndex;
+        this.backgroundColorIndex = backgroundColorIndex;
+        this.fontColorIndex = fontColorIndex;
     }
 
     public NoteInfo(String name, String date) {
         this.name = name;
         this.date = date;
-        this.colorIndex = 0;
+        this.backgroundColorIndex = 0;
+        this.fontColorIndex = 1;
     }
 
     public String getName() {
@@ -27,8 +31,12 @@ public class NoteInfo implements Serializable {
         return date;
     }
 
-    public int getColorIndex() {
-        return colorIndex;
+    public int getBackgroundColorIndex() {
+        return backgroundColorIndex;
+    }
+
+    public int getFontColorIndex() {
+        return fontColorIndex;
     }
 
     public void setName(String name) {
@@ -39,7 +47,11 @@ public class NoteInfo implements Serializable {
         this.date = date;
     }
 
-    public void setColorIndex(int colorIndex) {
-        this.colorIndex = colorIndex;
+    public void setBackgroundColorIndex(int backgroundColorIndex) {
+        this.backgroundColorIndex = backgroundColorIndex;
+    }
+
+    public void setFontColorIndex(int fontColorIndex) {
+        this.fontColorIndex = fontColorIndex;
     }
 }

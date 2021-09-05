@@ -15,14 +15,17 @@ public class NoteInfoModel {
     @NonNull
     public String name;
     public String date;
-    public int colorIndex; // индекс цвета в таблице цветов
+    public int backgroundColorIndex; // индекс цвета фона в таблице цветов
+    public int fontColorIndex; // индекс цвета шрифта в табоице цветов
 
-    public NoteInfoModel(String name, String date, int colorIndex){
+    public NoteInfoModel(@NonNull String name, String date, int backgroundColorIndex, int fontColorIndex){
         this.name = name;
         this.date = date;
-        this.colorIndex = colorIndex;
+        this.backgroundColorIndex = backgroundColorIndex;
+        this.fontColorIndex = fontColorIndex;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
@@ -31,15 +34,21 @@ public class NoteInfoModel {
         return date;
     }
 
-    public int getColorIndex() {
-        return colorIndex;
+    public int getBackgroundColorIndex() {
+        return backgroundColorIndex;
+    }
+
+    public int getFontColorIndex() {
+        return fontColorIndex;
     }
 
     @Override
     public String toString() {
         return "NoteInfoModel{" +
                 "name='" + name + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", backgroundColorIndex=" + backgroundColorIndex +
+                ", fontColorIndex=" + fontColorIndex +
                 '}';
     }
 }

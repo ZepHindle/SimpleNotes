@@ -10,14 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleNotes">
-        <activity android:name=".presentation.NoteSettingsActivity"></activity>
         <activity
             android:name=".presentation.NoteActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".presentation.NotesListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
