@@ -115,6 +115,8 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         int id = item.getItemId();
         if (id == R.id.main_menu_item_add_note){
             presenter.onMainMenuAddNote();
+        } else if (id == R.id.main_menu_item_create_account){
+            presenter.onMainMenuCreateAccount();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -165,6 +167,12 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     @Override
     public void startNoteActivity(NoteInfo noteInfo) {
         Intent intent = NoteActivity.createIntent(this, noteInfo);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startCreateAccountActivity() {
+        Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);
     }
 

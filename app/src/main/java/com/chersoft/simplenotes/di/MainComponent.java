@@ -1,5 +1,6 @@
 package com.chersoft.simplenotes.di;
 
+import com.chersoft.simplenotes.presentation.CreateAccountActivity;
 import com.chersoft.simplenotes.presentation.NoteActivity;
 import com.chersoft.simplenotes.presentation.NotesListActivity;
 
@@ -12,4 +13,5 @@ import dagger.Component;
 public interface MainComponent {
     void inject(NotesListActivity activity);
     void inject(NoteActivity noteActivity);
+    void inject(CreateAccountActivity createAccountActivity);
 }

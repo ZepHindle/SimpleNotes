@@ -12,5 +12,6 @@ public interface NotesListView {
     void showRenameNoteDialog(NoteInfo noteInfo);
     void showNoteColorDialog(NoteInfo noteInfo);
     void startNoteActivity(NoteInfo noteInfoModel);
+    void startCreateAccountActivity();
     void showToast(int stringResId);
 }

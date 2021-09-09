@@ -46,6 +46,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/notes_list_item_date_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/notes_list_item_name_view"
-        app:srcCompat="@drawable/menu_drawable" />
+        app:srcCompat="@drawable/options_drawable" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

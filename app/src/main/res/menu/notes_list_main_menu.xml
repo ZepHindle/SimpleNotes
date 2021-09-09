@@ -6,4 +6,10 @@
         android:id="@+id/main_menu_item_add_note"
         app:showAsAction="ifRoom|withText"
         android:title="" />
+
+    <item
+        android:icon="@drawable/create_account_drawable"
+        android:id="@+id/main_menu_item_create_account"
+        app:showAsAction="ifRoom|withText"
+        android:title="" />
 </menu>

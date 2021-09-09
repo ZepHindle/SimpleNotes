@@ -2,12 +2,17 @@ package com.chersoft.simplenotes.di;
 
 import android.content.Context;
 
+import com.chersoft.simplenotes.data.Service.Service;
+import com.chersoft.simplenotes.data.Service.ServiceAPI;
 import com.chersoft.simplenotes.data.repositories.NoteInfoRepositoryImpl;
 import com.chersoft.simplenotes.data.repositories.NoteRepositoryImpl;
+import com.chersoft.simplenotes.domain.interactors.CreateAccountInteractor;
+import com.chersoft.simplenotes.domain.models.UserAccount;
 import com.chersoft.simplenotes.domain.repositories.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.interactors.NoteInteractor;
 import com.chersoft.simplenotes.domain.repositories.NoteRepository;
 import com.chersoft.simplenotes.domain.interactors.NotesListInteractor;
+import com.chersoft.simplenotes.presentation.presenters.CreateAccountPresenter;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
@@ -16,6 +21,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Singleton
 @Module
@@ -64,6 +71,45 @@ public class MainModule {
     NotePresenter provideNotePresenter(NoteInteractor noteInteractor){
         return new NotePresenter(noteInteractor);
     }
+
+
+
+    @Singleton
+    @Provides
+    Retrofit provideRetrofit(){
+        return new Retrofit.Builder()
+                .baseUrl(Service.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    @Provides
+    ServiceAPI provideServiceAPI(Retrofit retrofit){
+        return retrofit.create(ServiceAPI.class);
+    }
+
+    @Singleton
+    @Provides
+    UserAccount provideUserAccount(){
+        return new UserAccount();
+    }
+
+    @Singleton
+    @Provides
+    Service provideService(Retrofit retrofit, ServiceAPI serviceAPI){
+        return new Service(retrofit, serviceAPI);
+    }
+
+    @Provides
+    CreateAccountInteractor provideAccountInteractor(UserAccount userAccount, Service service){
+        return new CreateAccountInteractor(userAccount, service);
+    }
+
+    @Provides
+    CreateAccountPresenter provideCreateAccountPresenter(CreateAccountInteractor interactor){
+        return new CreateAccountPresenter(interactor);
+    }
+
 
     @Provides
     Context provideContext(){
