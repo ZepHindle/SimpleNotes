@@ -12,4 +12,11 @@
         android:id="@+id/main_menu_item_create_account"
         app:showAsAction="ifRoom|withText"
         android:title="" />
+
+    <item
+        android:icon="@drawable/login_drawable"
+        android:id="@+id/main_menu_item_login"
+        app:showAsAction="ifRoom|withText"
+        android:title="" />
+
 </menu>

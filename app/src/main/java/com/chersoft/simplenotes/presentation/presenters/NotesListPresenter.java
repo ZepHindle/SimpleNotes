@@ -85,6 +85,10 @@ public class NotesListPresenter {
         view.startCreateAccountActivity();
     }
 
+    public void onMainMenuLogIn(){
+        view.startLogInActivity();
+    }
+
     public boolean onNoteContainsName(String noteName){
         return viewModel.containsName(noteName);
     }

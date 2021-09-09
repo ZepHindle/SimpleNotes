@@ -17,4 +17,9 @@
     <string name="user_created">User created successfully</string>
     <string name="user_already_exists">User with this name already exists</string>
     <string name="server_error">Server error</string>
+    <string name="register">register</string>
+    <string name="log_in">log in</string>
+    <string name="there_is_no_such_user">There is no user with this name</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="login_successful">Log in successful</string>
 </resources>

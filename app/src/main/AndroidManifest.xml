@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chersoft.simplenotes">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".presentation.MainApplication"
         android:allowBackup="true"
@@ -12,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleNotes">
+        <activity android:name=".presentation.LogInActivity"></activity>
         <activity android:name=".presentation.CreateAccountActivity" />
         <activity
             android:name=".presentation.NoteActivity"
@@ -24,5 +23,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

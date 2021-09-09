@@ -7,12 +7,14 @@ import com.chersoft.simplenotes.data.Service.ServiceAPI;
 import com.chersoft.simplenotes.data.repositories.NoteInfoRepositoryImpl;
 import com.chersoft.simplenotes.data.repositories.NoteRepositoryImpl;
 import com.chersoft.simplenotes.domain.interactors.CreateAccountInteractor;
+import com.chersoft.simplenotes.domain.interactors.LogInInteractor;
 import com.chersoft.simplenotes.domain.models.UserAccount;
 import com.chersoft.simplenotes.domain.repositories.NoteInfoRepository;
 import com.chersoft.simplenotes.domain.interactors.NoteInteractor;
 import com.chersoft.simplenotes.domain.repositories.NoteRepository;
 import com.chersoft.simplenotes.domain.interactors.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.presenters.CreateAccountPresenter;
+import com.chersoft.simplenotes.presentation.presenters.LogInPresenter;
 import com.chersoft.simplenotes.presentation.presenters.NotePresenter;
 import com.chersoft.simplenotes.presentation.presenters.NotesListPresenter;
 import com.chersoft.simplenotes.presentation.viewmodels.NotesListViewModel;
@@ -110,6 +112,15 @@ public class MainModule {
         return new CreateAccountPresenter(interactor);
     }
 
+    @Provides
+    LogInInteractor provideLogInInteractor(UserAccount userAccount, Service service){
+        return new LogInInteractor(userAccount, service);
+    }
+
+    @Provides
+    LogInPresenter provideLogInPresenter(LogInInteractor inInteractor){
+        return new LogInPresenter(inInteractor);
+    }
 
     @Provides
     Context provideContext(){

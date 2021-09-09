@@ -13,5 +13,6 @@ public interface NotesListView {
     void showNoteColorDialog(NoteInfo noteInfo);
     void startNoteActivity(NoteInfo noteInfoModel);
     void startCreateAccountActivity();
+    void startLogInActivity();
     void showToast(int stringResId);
 }

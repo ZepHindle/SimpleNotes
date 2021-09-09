@@ -8,4 +8,8 @@ public interface ServiceAPI {
     @GET("createaccount/")
     Call<CreateAccountResponse> createAccount(@Query("userName") String userName,
                                               @Query("password") String password);
+
+    @GET("validate/")
+    Call<PasswordValidationResponse> logIn(@Query("userName") String userName,
+                                           @Query("password") String password);
 }
