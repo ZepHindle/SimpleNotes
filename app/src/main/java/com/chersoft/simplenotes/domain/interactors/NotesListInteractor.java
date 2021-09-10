@@ -80,7 +80,21 @@ public class NotesListInteractor {
         });
     }
 
-    public Call<Void> upload(ArrayList<LoadNoteResponse> list){
+    public Call<Void> uploadFromServer(ArrayList<LoadNoteResponse> list){
         return service.getServiceAPI().upload(userAccount.getUserName(), userAccount.getPassword(), list);
+    }
+
+    public Completable saveNotes(ArrayList<LoadNoteResponse> list){
+        return Completable.fromRunnable(() -> {
+            for (LoadNoteResponse note : list){
+                NoteModel noteModel = new NoteModel();
+                noteModel.setText(note.getNote());
+                noteRepository.setByName(note.getName(), noteModel);
+            }
+        });
+    }
+
+    public Call<ArrayList<LoadNoteResponse>> loadFromServer(){
+        return service.getServiceAPI().load(userAccount.getUserName(), userAccount.getPassword());
     }
 }

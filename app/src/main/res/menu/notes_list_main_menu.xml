@@ -14,21 +14,21 @@
         android:title="" />
 
     <item
-        android:icon="@drawable/login_drawable"
         android:id="@+id/main_menu_item_login"
-        app:showAsAction="ifRoom|withText"
-        android:title="" />
+        android:icon="@drawable/login_drawable"
+        android:title="@string/log_in"
+        app:showAsAction="ifRoom|withText" />
 
     <item
-        android:icon="@drawable/upload_drawable"
         android:id="@+id/main_menu_upload"
-        app:showAsAction="ifRoom|withText"
-        android:title="" />
+        android:icon="@drawable/upload_drawable"
+        android:title="upload"
+        app:showAsAction="ifRoom|withText" />
 
     <item
-        android:icon="@drawable/load_drawable"
         android:id="@+id/main_menu_load"
-        app:showAsAction="ifRoom|withText"
-        android:title="" />
+        android:icon="@drawable/load_drawable"
+        android:title="load"
+        app:showAsAction="ifRoom|withText" />
 
 </menu>

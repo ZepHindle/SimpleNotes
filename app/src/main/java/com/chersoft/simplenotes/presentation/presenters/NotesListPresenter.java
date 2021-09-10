@@ -105,7 +105,7 @@ public class NotesListPresenter {
                 .subscribe(new BiConsumer<ArrayList<LoadNoteResponse>, Throwable>() {
                     @Override
                     public void accept(ArrayList<LoadNoteResponse> loadNoteResponses, Throwable throwable) throws Exception {
-                        interactor.upload(loadNoteResponses).enqueue(new Callback<Void>() {
+                        interactor.uploadFromServer(loadNoteResponses).enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.isSuccessful()){
@@ -125,7 +125,56 @@ public class NotesListPresenter {
     }
 
     public void onMainMenuLoad(){
+        if (!interactor.isLogined()){
+            view.showToast(R.string.you_need_to_login);
+            return;
+        }
+        interactor.loadFromServer().enqueue(new Callback<ArrayList<LoadNoteResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<LoadNoteResponse>> call, Response<ArrayList<LoadNoteResponse>> response) {
+                if (!response.isSuccessful()){
+                    view.showToast(R.string.server_error);
+                    return;
+                }
+                ArrayList<LoadNoteResponse> body = response.body();
+                ArrayList<NoteInfo> noteInfos = new ArrayList<>(body.size());
+                for (LoadNoteResponse loadNoteResponse : body){
+                    noteInfos.add(new NoteInfo(
+                            loadNoteResponse.getName(),
+                            loadNoteResponse.getDate(),
+                            loadNoteResponse.getBackgroundColorIndex(),
+                            loadNoteResponse.getFontColorIndex()
+                    ));
+                }
+                viewModel.setNotes(noteInfos);
+                view.updateNotes();
+                interactor.saveNotes(body)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
 
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                /// TODO
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<LoadNoteResponse>> call, Throwable t) {
+                view.showToast(R.string.server_error);
+            }
+        });
     }
 
     public boolean onNoteContainsName(String noteName){

@@ -21,4 +21,8 @@ public interface ServiceAPI {
     Call<Void> upload(@Query("userName") String userName,
                    @Query("password") String password,
                    @Body ArrayList<LoadNoteResponse> list);
+
+    @GET("load/")
+    Call<ArrayList<LoadNoteResponse>> load(@Query("userName") String userName,
+                                           @Query("password") String password);
 }
