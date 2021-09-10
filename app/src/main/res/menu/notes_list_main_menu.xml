@@ -19,4 +19,16 @@
         app:showAsAction="ifRoom|withText"
         android:title="" />
 
+    <item
+        android:icon="@drawable/upload_drawable"
+        android:id="@+id/main_menu_upload"
+        app:showAsAction="ifRoom|withText"
+        android:title="" />
+
+    <item
+        android:icon="@drawable/load_drawable"
+        android:id="@+id/main_menu_load"
+        app:showAsAction="ifRoom|withText"
+        android:title="" />
+
 </menu>

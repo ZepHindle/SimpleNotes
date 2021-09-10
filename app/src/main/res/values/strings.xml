@@ -22,4 +22,6 @@
     <string name="there_is_no_such_user">There is no user with this name</string>
     <string name="wrong_password">Wrong password</string>
     <string name="login_successful">Log in successful</string>
+    <string name="notes_uploaded_successfully">Notes uploaded successfully</string>
+    <string name="you_need_to_login">You need to login first</string>
 </resources>

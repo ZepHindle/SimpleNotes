@@ -119,6 +119,10 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
             presenter.onMainMenuCreateAccount();
         } else if (id == R.id.main_menu_item_login){
             presenter.onMainMenuLogIn();
+        } else if (id == R.id.main_menu_load){
+            presenter.onMainMenuLoad();
+        } else if (id == R.id.main_menu_upload){
+            presenter.onMainMenuUpload();
         }
         return super.onOptionsItemSelected(item);
     }

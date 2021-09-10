@@ -55,8 +55,11 @@ public class MainModule {
     }
 
     @Provides
-    NotesListInteractor provideNotesListInteractor(NoteInfoRepository noteInfoRepository, NoteRepository noteRepository){
-        return new NotesListInteractor(noteInfoRepository, noteRepository);
+    NotesListInteractor provideNotesListInteractor(NoteInfoRepository noteInfoRepository,
+                                                   NoteRepository noteRepository,
+                                                   UserAccount userAccount,
+                                                   Service service){
+        return new NotesListInteractor(noteInfoRepository, noteRepository, userAccount, service);
     }
 
     @Provides

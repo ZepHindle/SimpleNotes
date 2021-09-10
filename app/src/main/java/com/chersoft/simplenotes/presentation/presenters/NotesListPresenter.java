@@ -3,6 +3,7 @@ package com.chersoft.simplenotes.presentation.presenters;
 import androidx.annotation.Nullable;
 
 import com.chersoft.simplenotes.R;
+import com.chersoft.simplenotes.data.Service.LoadNoteResponse;
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 import com.chersoft.simplenotes.domain.interactors.NotesListInteractor;
 import com.chersoft.simplenotes.presentation.NotesListView;
@@ -17,7 +18,11 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiConsumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotesListPresenter {
 
@@ -87,6 +92,40 @@ public class NotesListPresenter {
 
     public void onMainMenuLogIn(){
         view.startLogInActivity();
+    }
+
+    public void onMainMenuUpload(){
+        if (!interactor.isLogined()){
+            view.showToast(R.string.you_need_to_login);
+            return;
+        }
+        Disposable disposable = interactor.createNotesList(viewModel.getNotes())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BiConsumer<ArrayList<LoadNoteResponse>, Throwable>() {
+                    @Override
+                    public void accept(ArrayList<LoadNoteResponse> loadNoteResponses, Throwable throwable) throws Exception {
+                        interactor.upload(loadNoteResponses).enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()){
+                                    view.showToast(R.string.notes_uploaded_successfully);
+                                } else {
+                                    view.showToast(R.string.server_error);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                view.showToast(R.string.server_error);
+                            }
+                        });
+                    }
+                });
+    }
+
+    public void onMainMenuLoad(){
+
     }
 
     public boolean onNoteContainsName(String noteName){
