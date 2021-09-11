@@ -23,6 +23,7 @@ public class CreateAccountPresenter {
 
     public void onCreate(CreateAccountView view){
         this.view = view;
+        view.setProgressBarVisible(false);
     }
 
     public void onRegisterButtonPress(String userName, String password, String passwordRepeat){
@@ -30,6 +31,7 @@ public class CreateAccountPresenter {
             view.toast(R.string.passwords_are_not_the_same);
             return;
         }
+        view.setProgressBarVisible(true);
         interactor.createUser(userName, password).enqueue(new Callback<CreateAccountResponse>() {
             @Override
             public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
@@ -40,11 +42,13 @@ public class CreateAccountPresenter {
                 } else {
                     view.toast(R.string.user_already_exists);
                 }
+                view.setProgressBarVisible(false);
             }
 
             @Override
             public void onFailure(Call<CreateAccountResponse> call, Throwable t) {
                 view.toast(R.string.server_error);
+                view.setProgressBarVisible(false);
             }
         });
     }

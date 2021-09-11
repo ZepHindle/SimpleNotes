@@ -15,4 +15,5 @@ public interface NotesListView {
     void startCreateAccountActivity();
     void startLogInActivity();
     void showToast(int stringResId);
+    void setProgressBarVisible(boolean visible);
 }

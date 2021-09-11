@@ -30,6 +30,8 @@ public class NotesListPresenter {
     private final NotesListInteractor interactor;
     private final NotesListViewModel viewModel;
 
+    private Disposable disposable;
+
     public NotesListPresenter(NotesListInteractor interactor, NotesListViewModel viewModel){
         this.interactor = interactor;
         this.viewModel = viewModel;
@@ -43,21 +45,30 @@ public class NotesListPresenter {
 
     public void onCreate(NotesListView view){
         this.view = view;
+        view.setProgressBarVisible(true);
         interactor.load()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<NoteInfo>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {}
+                    public void onSubscribe(@NonNull Disposable d) {
+                        if (disposable != null) disposable.dispose();
+                        disposable = d;
+                    }
 
                     @Override
                     public void onNext(@NonNull List<NoteInfo> models) {
                         viewModel.setNotes(new ArrayList<>(models));
                         view.updateNotes();
+                        view.setProgressBarVisible(false);
+                        disposable = null;
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {}
+                    public void onError(@NonNull Throwable e) {
+                        view.setProgressBarVisible(false);
+                        disposable = null;
+                    }
 
                     @Override
                     public void onComplete() {}
@@ -65,6 +76,7 @@ public class NotesListPresenter {
     }
 
     public void onStop(){
+        if (disposable != null) disposable.dispose();
         interactor.save(viewModel.getNotes())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -99,6 +111,7 @@ public class NotesListPresenter {
             view.showToast(R.string.you_need_to_login);
             return;
         }
+        view.setProgressBarVisible(true);
         Disposable disposable = interactor.createNotesList(viewModel.getNotes())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -113,11 +126,13 @@ public class NotesListPresenter {
                                 } else {
                                     view.showToast(R.string.server_error);
                                 }
+                                view.setProgressBarVisible(false);
                             }
 
                             @Override
                             public void onFailure(Call<Void> call, Throwable t) {
                                 view.showToast(R.string.server_error);
+                                view.setProgressBarVisible(false);
                             }
                         });
                     }
@@ -129,6 +144,7 @@ public class NotesListPresenter {
             view.showToast(R.string.you_need_to_login);
             return;
         }
+        view.setProgressBarVisible(true);
         interactor.loadFromServer().enqueue(new Callback<ArrayList<LoadNoteResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<LoadNoteResponse>> call, Response<ArrayList<LoadNoteResponse>> response) {
@@ -159,12 +175,12 @@ public class NotesListPresenter {
 
                             @Override
                             public void onComplete() {
-                                /// TODO
+                                view.setProgressBarVisible(false);
                             }
 
                             @Override
                             public void onError(@NonNull Throwable e) {
-
+                                view.setProgressBarVisible(false);
                             }
                         });
 
@@ -173,6 +189,7 @@ public class NotesListPresenter {
             @Override
             public void onFailure(Call<ArrayList<LoadNoteResponse>> call, Throwable t) {
                 view.showToast(R.string.server_error);
+                view.setProgressBarVisible(false);
             }
         });
     }

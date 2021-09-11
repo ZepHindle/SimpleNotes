@@ -23,12 +23,15 @@ public class LogInPresenter {
 
     public void onCreate(LogInActivityView view){
         this.view = view;
+        view.setProgressBarVisible(false);
     }
 
     public void onLogInButton(String userName, String password){
+        view.setProgressBarVisible(true);
         interactor.logIn(userName, password).enqueue(new Callback<PasswordValidationResponse>() {
             @Override
             public void onResponse(Call<PasswordValidationResponse> call, Response<PasswordValidationResponse> response) {
+                view.setProgressBarVisible(false);
                 PasswordValidationResponse pvr = response.body();
                 switch (pvr.getResult()){
                     case PasswordValidationResponse.NO_SUCH_USER:{
@@ -47,6 +50,7 @@ public class LogInPresenter {
             @Override
             public void onFailure(Call<PasswordValidationResponse> call, Throwable t) {
                 view.toast(R.string.server_error);
+                view.setProgressBarVisible(false);
             }
         });
     }

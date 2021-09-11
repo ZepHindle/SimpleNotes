@@ -1,5 +1,6 @@
 package com.chersoft.simplenotes.presentation;
 
 public interface CreateAccountView {
-    public void toast(int stringResId);
+    void toast(int stringResId);
+    void setProgressBarVisible(boolean visible);
 }

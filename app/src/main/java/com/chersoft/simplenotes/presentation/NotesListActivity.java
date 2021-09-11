@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     @Inject
     NotesListPresenter presenter;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,8 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        this.progressBar = findViewById(R.id.notes_list_activity_progress_bar);
     }
 
     public NotesListPresenter getPresenter() {
@@ -191,5 +196,14 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
     @Override
     public void showToast(int stringResId) {
         Toast.makeText(this, stringResId, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setProgressBarVisible(boolean visible) {
+        if (visible){
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
