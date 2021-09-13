@@ -21,10 +21,21 @@ public class CreateAccountInteractor {
         this.service = service;
     }
 
+    /**
+     * СОздает объект запроса к серверу на создание аккаунта.
+     * @param userName имя пользователя
+     * @param password пароль пользователя
+     * @return объект для управления запросом
+     */
     public Call<CreateAccountResponse> createUser(String userName, String password){
         return service.getServiceAPI().createAccount(userName, password);
     }
 
+    /**
+     * Записывает данные текущего аккаунта.
+     * @param userName имя пользователя
+     * @param password пароль пользователя
+     */
     public void setUserAccount(String userName, String password){
         userAccount.setUserName(userName);
         userAccount.setPassword(password);

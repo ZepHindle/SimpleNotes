@@ -38,6 +38,12 @@ public class LogInActivity extends AppCompatActivity implements LogInActivityVie
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.onStop();
+    }
+
+    @Override
     public void toast(int stringResId) {
         Toast.makeText(this, stringResId, Toast.LENGTH_LONG).show();
     }

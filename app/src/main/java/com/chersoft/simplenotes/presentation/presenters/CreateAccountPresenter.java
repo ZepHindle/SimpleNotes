@@ -16,6 +16,8 @@ public class CreateAccountPresenter {
     private final CreateAccountInteractor interactor;
     private CreateAccountView view;
 
+    private Call<CreateAccountResponse> call;
+
     @Inject
     public CreateAccountPresenter(CreateAccountInteractor interactor){
         this.interactor = interactor;
@@ -26,13 +28,21 @@ public class CreateAccountPresenter {
         view.setProgressBarVisible(false);
     }
 
+    public void onStop(){
+        if (call != null) call.cancel();
+    }
+
     public void onRegisterButtonPress(String userName, String password, String passwordRepeat){
         if (!password.equals(passwordRepeat)) {
             view.toast(R.string.passwords_are_not_the_same);
             return;
         }
         view.setProgressBarVisible(true);
-        interactor.createUser(userName, password).enqueue(new Callback<CreateAccountResponse>() {
+
+        if (call != null) call.cancel();
+
+        this.call = interactor.createUser(userName, password);
+        call.enqueue(new Callback<CreateAccountResponse>() {
             @Override
             public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
                 CreateAccountResponse createAccountResponse = response.body();
@@ -43,12 +53,16 @@ public class CreateAccountPresenter {
                     view.toast(R.string.user_already_exists);
                 }
                 view.setProgressBarVisible(false);
+                CreateAccountPresenter.this.call = null;
             }
 
             @Override
             public void onFailure(Call<CreateAccountResponse> call, Throwable t) {
-                view.toast(R.string.server_error);
-                view.setProgressBarVisible(false);
+                if (!call.isCanceled()){
+                    view.toast(R.string.server_error);
+                    view.setProgressBarVisible(false);
+                }
+                CreateAccountPresenter.this.call = null;
             }
         });
     }

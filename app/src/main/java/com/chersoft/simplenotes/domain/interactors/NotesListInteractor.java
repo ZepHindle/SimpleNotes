@@ -35,28 +35,54 @@ public class NotesListInteractor {
         this.service = service;
     }
 
+    /**
+     * Сохраняет список заметок в репозиторий.
+     * @param noteInfos заметки
+     * @return completable
+     */
     public Completable save(List<NoteInfo> noteInfos){
         return noteInfoRepository.save(NoteInfoMapper.reverseList(noteInfos));
     }
 
+    /**
+     * Загружает заметки из репозитория.
+     * @return заметки
+     */
     public Observable<List<NoteInfo>> load(){
         return noteInfoRepository.load().map(NoteInfoMapper::mapList);
     }
 
+    /**
+     * Удаляет заметку.
+     * @param note заметка
+     */
     public void removeNote(NoteInfo note){
         noteRepository.remove(note.getName());
     }
 
+    /**
+     * Меняет имя заметки.
+     * @param oldName старое имя заметки
+     * @param newName новое имя заметки
+     */
     public void changeName(String oldName, String newName){
         // менять NoteInfoRepository не нужно т.к. он каждый раз перезаписывается
         noteRepository.changeName(oldName, newName);
     }
 
-
+    /**
+     * Определяет, вошел ли пользователь в аккаунт.
+     * @return true, если пользователь вошел в аккаунт и false иначе
+     */
     public boolean isLogined(){
         return userAccount.getPassword() != null;
     }
 
+    /**
+     * Готовит заметки к передаче на сервер.
+     * @param noteInfos список заметок
+     * @return single
+     */
     public Single<ArrayList<LoadNoteResponse>> createNotesList(List<NoteInfo> noteInfos){
         return Single.fromCallable(() -> {
             ArrayList<LoadNoteResponse> result = new ArrayList<>(noteInfos.size());
@@ -80,10 +106,20 @@ public class NotesListInteractor {
         });
     }
 
+    /**
+     * Загружает заметки на сервер.
+     * @param list список элементов для загрузки на сервер
+     * @return объект управления запросом
+     */
     public Call<Void> uploadFromServer(ArrayList<LoadNoteResponse> list){
         return service.getServiceAPI().upload(userAccount.getUserName(), userAccount.getPassword(), list);
     }
 
+    /**
+     * Сохраняет заметки, полученные с сервера.
+     * @param list список заметок
+     * @return completable
+     */
     public Completable saveNotes(ArrayList<LoadNoteResponse> list){
         return Completable.fromRunnable(() -> {
             for (LoadNoteResponse note : list){
@@ -94,6 +130,10 @@ public class NotesListInteractor {
         });
     }
 
+    /**
+     * Загружает заметки с сервера.
+     * @return объект управления запросом
+     */
     public Call<ArrayList<LoadNoteResponse>> loadFromServer(){
         return service.getServiceAPI().load(userAccount.getUserName(), userAccount.getPassword());
     }

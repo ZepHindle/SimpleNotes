@@ -24,14 +24,29 @@ public class NoteInteractor {
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * Загружает ViewModel.
+     * @param noteInfo информация о заметке
+     * @return viewModel
+     */
     public NoteViewModel loadViewModel(NoteInfo noteInfo){
         return NoteViewModelManager.load(this, noteInfo, applicationContext);
     }
 
+    /**
+     * Сохраняет текст заметки с заданным именем.
+     * @param name имя заметки
+     * @param note заметка
+     */
     public void setByName(String name, Note note){
         noteRepository.setByName(name, NoteMapper.reverse(note));
     }
 
+    /**
+     * Получает заметку с заданным именем.
+     * @param name имя заметки
+     * @return заметка
+     */
     public @Nullable Note getByName(String name){
         return NoteMapper.map(noteRepository.getByName(name));
     }

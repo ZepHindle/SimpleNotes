@@ -15,6 +15,7 @@ public class LogInPresenter {
 
     private final LogInInteractor interactor;
     private LogInActivityView view;
+    private Call<PasswordValidationResponse> call;
 
     @Inject
     public LogInPresenter(LogInInteractor interactor){
@@ -26,9 +27,17 @@ public class LogInPresenter {
         view.setProgressBarVisible(false);
     }
 
+    public void onStop(){
+        if (call != null) call.cancel();
+    }
+
     public void onLogInButton(String userName, String password){
         view.setProgressBarVisible(true);
-        interactor.logIn(userName, password).enqueue(new Callback<PasswordValidationResponse>() {
+
+        if (call != null) call.cancel();
+
+        this.call = interactor.logIn(userName, password);
+        call.enqueue(new Callback<PasswordValidationResponse>() {
             @Override
             public void onResponse(Call<PasswordValidationResponse> call, Response<PasswordValidationResponse> response) {
                 view.setProgressBarVisible(false);
@@ -45,12 +54,16 @@ public class LogInPresenter {
                         interactor.setUserAccount(userName, password);
                     }break;
                 }
+                LogInPresenter.this.call = null;
             }
 
             @Override
             public void onFailure(Call<PasswordValidationResponse> call, Throwable t) {
-                view.toast(R.string.server_error);
-                view.setProgressBarVisible(false);
+                if (!call.isCanceled()){
+                    view.toast(R.string.server_error);
+                    view.setProgressBarVisible(false);
+                }
+                LogInPresenter.this.call = null;
             }
         });
     }
