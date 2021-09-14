@@ -23,15 +23,28 @@ public class CreateAccountPresenter {
         this.interactor = interactor;
     }
 
+    /**
+     * Вызывается при вызове onCreate активности.
+     * @param view view в MVP
+     */
     public void onCreate(CreateAccountView view){
         this.view = view;
         view.setProgressBarVisible(false);
     }
 
+    /**
+     * Вызывается при вызове onStop активности.
+     */
     public void onStop(){
         if (call != null) call.cancel();
     }
 
+    /**
+     * Вызывается при нажатии на кнопку "register"
+     * @param userName имя пользователя
+     * @param password пароль
+     * @param passwordRepeat повторенный пароль
+     */
     public void onRegisterButtonPress(String userName, String password, String passwordRepeat){
         if (!password.equals(passwordRepeat)) {
             view.toast(R.string.passwords_are_not_the_same);

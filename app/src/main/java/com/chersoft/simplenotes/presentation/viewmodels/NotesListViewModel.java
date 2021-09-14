@@ -1,7 +1,5 @@
 package com.chersoft.simplenotes.presentation.viewmodels;
 
-import androidx.annotation.Nullable;
-
 import com.chersoft.simplenotes.domain.models.NoteInfo;
 
 import java.util.ArrayList;

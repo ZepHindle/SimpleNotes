@@ -22,15 +22,27 @@ public class LogInPresenter {
         this.interactor = interactor;
     }
 
+    /**
+     * Вызывается при вызове onCreate активности.
+     * @param view view в MVP
+     */
     public void onCreate(LogInActivityView view){
         this.view = view;
         view.setProgressBarVisible(false);
     }
 
+    /**
+     * Вызывается при вызове onStop активности.
+     */
     public void onStop(){
         if (call != null) call.cancel();
     }
 
+    /**
+     * Вызывается при нажатии на кнопку "log in"
+     * @param userName имя пользователя
+     * @param password пароль
+     */
     public void onLogInButton(String userName, String password){
         view.setProgressBarVisible(true);
 

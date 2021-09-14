@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,6 +34,7 @@ public class NotesListPresenter {
 
     private Disposable disposable;
 
+    @Inject
     public NotesListPresenter(NotesListInteractor interactor, NotesListViewModel viewModel){
         this.interactor = interactor;
         this.viewModel = viewModel;
@@ -43,6 +46,10 @@ public class NotesListPresenter {
 
     // методы для вызова из NotesListActivity
 
+    /**
+     * Вызывается при вызове onCreate активности.
+     * @param view view в MVP
+     */
     public void onCreate(NotesListView view){
         this.view = view;
         view.setProgressBarVisible(true);
@@ -75,6 +82,9 @@ public class NotesListPresenter {
                 });
     }
 
+    /**
+     * Вызывается при вызове onStop активности.
+     */
     public void onStop(){
         if (disposable != null) disposable.dispose();
         interactor.save(viewModel.getNotes())
@@ -94,18 +104,30 @@ public class NotesListPresenter {
                 });
     }
 
+    /**
+     * Вызывается при выборе пункта в главном меню "add note".
+     */
     public void onMainMenuAddNote(){
         view.showNewNoteDialog();
     }
 
+    /**
+     * Вызывается при выборе пункта в главном меню "create account".
+     */
     public void onMainMenuCreateAccount(){
         view.startCreateAccountActivity();
     }
 
+    /**
+     * Вызывается при выборе пункта в главном меню "log in".
+     */
     public void onMainMenuLogIn(){
         view.startLogInActivity();
     }
 
+    /**
+     * Вызывается при выборе пункта в главном меню "upload".
+     */
     public void onMainMenuUpload(){
         if (!interactor.isLogined()){
             view.showToast(R.string.you_need_to_login);
@@ -139,6 +161,9 @@ public class NotesListPresenter {
                 });
     }
 
+    /**
+     * Вызывается при выборе пункта в главном меню "load".
+     */
     public void onMainMenuLoad(){
         if (!interactor.isLogined()){
             view.showToast(R.string.you_need_to_login);
@@ -194,10 +219,19 @@ public class NotesListPresenter {
         });
     }
 
+    /**
+     * Проверяет, содержит ли viewModel заметку с таким именем.
+     * @param noteName имя заметки
+     * @return содержит ли viewModel заметку с таким именем
+     */
     public boolean onNoteContainsName(String noteName){
         return viewModel.containsName(noteName);
     }
 
+    /**
+     * Вызывается при завершении диалога "NewNoteDialog".
+     * @param noteName имя новой заметки, выбранное в диалоге
+     */
     public void onNewNoteDialogDismiss(@Nullable String noteName){
         if (noteName == null) return;
         // добавляем новую заметку
@@ -205,6 +239,11 @@ public class NotesListPresenter {
         view.addNote(index);
     }
 
+    /**
+     * Вызывается при завершении диалога "RenameNoteDialog".
+     * @param oldName старое имя заметки
+     * @param newName новое имя заметки
+     */
     public void onRenameNoteDialogDismiss(String oldName, @Nullable String newName){
         if (newName == null) return;
         int index = viewModel.findIndexByName(oldName);
@@ -214,6 +253,12 @@ public class NotesListPresenter {
         view.updateNote(index);
     }
 
+    /**
+     * Вызывается при завершении диалога "NoteColorDialog".
+     * @param oldName имя заметки
+     * @param backgroundColorIndex индекс цвета фона заметки
+     * @param fontColorIndex индекс цвета текста заметки
+     */
     public void onNoteColorDialogDismiss(String oldName, int backgroundColorIndex, int fontColorIndex){
         int index = viewModel.findIndexByName(oldName);
         NoteInfo noteInfo = viewModel.getByIndex(index);
@@ -224,40 +269,72 @@ public class NotesListPresenter {
 
     // методы для вызова из адаптера/ItemTouchHelper recycler view
 
+    /**
+     * Возвращает количество заметок во viewModel.
+     * @return количество заметок во viewModel
+     */
     public int onGetCount(){
         return viewModel.getCount();
     }
 
+    /**
+     * Возвращает заметку с заданным индексом из viewModel .
+     * @param index индекс заметки
+     * @return заметка
+     */
     public NoteInfo onGetNoteInfo(int index){
         return viewModel.getByIndex(index);
     }
 
+    /**
+     * Вызывается при выборе пункте контекстного меню "edit".
+     * @param noteInfo заметка
+     */
     public void onContextMenuEdit(NoteInfo noteInfo){
         view.showNoteColorDialog(noteInfo);
     }
 
+    /**
+     * Вызывается при выборе пункте контекстного меню "rename".
+     * @param noteInfo заметка
+     */
     public void onContextMenuRename(NoteInfo noteInfo){
         view.showRenameNoteDialog(noteInfo);
     }
 
+    /**
+     * Вызывается при выборе пункте контекстного меню "delete".
+     * @param noteInfo заметка
+     */
     public void onContextMenuDelete(NoteInfo noteInfo){
         removeNote(noteInfo);
     }
 
+    /**
+     * Вызывается при свайпе вправо заметки.
+     * @param noteInfo заметка
+     */
     public void onNoteSwiped(NoteInfo noteInfo){
         removeNote(noteInfo);
     }
 
+    /**
+     * Вызывается при нажатии на заметку.
+     * @param noteInfo заметка
+     */
     public void onNotePress(NoteInfo noteInfo){
         getView().startNoteActivity(noteInfo);
     }
 
-
-    private void removeNote(NoteInfo model){
-        int index = viewModel.findIndex(model);
+    /**
+     * Удаляет заметку из viewModel.
+     * @param note заметка
+     */
+    private void removeNote(NoteInfo note){
+        int index = viewModel.findIndex(note);
         if (index < 0) return;
         viewModel.removeByIndex(index);
-        interactor.removeNote(model);
+        interactor.removeNote(note);
         view.removeNote(index);
     }
 }

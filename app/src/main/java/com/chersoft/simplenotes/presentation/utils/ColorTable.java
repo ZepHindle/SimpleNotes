@@ -29,14 +29,29 @@ public final class ColorTable {
         colors.add(Color.parseColor("#6d4c41"));
     }
 
+    /**
+     * Возвращает количество цветов за таблице.
+     * @return количество цветов в таблице
+     */
     public static int getTableSize(){
         return colors.size();
     }
 
+    /**
+     * Возвращает цвет в таблице с заданным индексом.
+     * @param index индекс цвета
+     * @return цвет
+     */
     public static @ColorInt int getColor(int index){
         return colors.get(index);
     }
 
+    /**
+     * Задает view цвет фона и цвет текста.
+     * @param view view
+     * @param backgroundColorIndex индекс цвета фона
+     * @param fontColorIndex индекс цвета текста
+     */
     public static void customize(View view, int backgroundColorIndex, int fontColorIndex){
         view.setBackgroundColor(getColor(backgroundColorIndex));
         if (view instanceof TextView){

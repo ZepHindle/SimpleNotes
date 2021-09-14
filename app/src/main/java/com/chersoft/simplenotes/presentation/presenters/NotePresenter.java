@@ -21,6 +21,11 @@ public class NotePresenter {
         this.interactor = noteInteractor;
     }
 
+    /**
+     * Вызывается при вызове onCreate активности.
+     * @param noteView view в MVP
+     * @param noteInfo информация о заметке
+     */
     public void onCreate(NoteView noteView, NoteInfo noteInfo){
         this.noteView = noteView;
         this.noteViewModel = interactor.loadViewModel(noteInfo);
@@ -29,10 +34,16 @@ public class NotePresenter {
         noteView.setText(noteViewModel.getText());
     }
 
+    /**
+     * Вызывается при вызове onStop активности.
+     */
     public void onStop(){
         NoteViewModelManager.save(noteView.getContext());
     }
 
+    /**
+     * Вызывается при нажатии на кнопку "back".
+     */
     public void onBackPressed(){
         if (noteViewModel.hasChanges()){
             noteView.showExitDialog();
@@ -54,6 +65,10 @@ public class NotePresenter {
         noteView.close();
     }
 
+    /**
+     * Вызывается при изменении текста.
+     * @param text новый текст
+     */
     public void onTextChanged(String text){
         noteViewModel.setText(text);
         noteViewModel.setHasChanges(true);
