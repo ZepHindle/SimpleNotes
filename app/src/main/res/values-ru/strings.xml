@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Простые Заметки</string>
+    <string name="popupmenu_change_colors">изменить цвета</string>
+    <string name="popupmenu_delete">удалить</string>
+    <string name="new_note_dialog_enter_note_name">Введите имя заметки</string>
+    <string name="note_already_exists">Заметка с таким именем уже существует</string>
+    <string name="note_bad_name">Некорректное имя заметки</string>
+    <string name="do_you_want_to_save_the_changes">Сохранить изменения?</string>
+    <string name="fail_write_to_db">Сохранить в базу данных не удалось.</string>
+    <string name="popupmenu_rename">переименовать</string>
+    <string name="note_background_color">Цвет фона заметки</string>
+    <string name="note_text_color">Цвет текста заметки</string>
+    <string name="user_name">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="passwords_are_not_the_same">Пароли не совпадают</string>
+    <string name="user_created">Пользователь успешно зарегистрирован</string>
+    <string name="user_already_exists">Пользователь с таким именем уже существует</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="register">зарегистрироваться</string>
+    <string name="log_in">авторизоваться</string>
+    <string name="there_is_no_such_user">Пользователя с таким именем нет</string>
+    <string name="wrong_password">Неверный пароль</string>
+    <string name="login_successful">Авторизация прошла успешно</string>
+    <string name="notes_uploaded_successfully">Заметки загружены на сервер успешно</string>
+    <string name="you_need_to_login">Сначала нужно авторизоваться</string>
+    <string name="upload">загрузить на сервер</string>
+    <string name="load">загрузить с сервера</string>
+    <string name="create_account">создать аккаунт</string>
+    <string name="add_note">добавить заметку</string>
+</resources>

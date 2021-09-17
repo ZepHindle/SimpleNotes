@@ -24,7 +24,6 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
 
     @Inject
     NotePresenter presenter;
-    private boolean firstTextWatcherCall;
     private EditText noteEditText;
 
     @Override
@@ -40,18 +39,13 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (firstTextWatcherCall) {
-                    firstTextWatcherCall = false;
-                } else {
-                    presenter.onTextChanged(charSequence.toString());
-                }
+                presenter.onTextChanged(charSequence.toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {}
         });
 
-        firstTextWatcherCall = true;
         NoteInfo noteInfo = (NoteInfo) getIntent().getSerializableExtra(EXTRA_NOTE_INFO_MODEL);
 
         int backgroundColorIndex = noteInfo.getBackgroundColorIndex();

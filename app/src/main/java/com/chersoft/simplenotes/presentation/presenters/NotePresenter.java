@@ -70,7 +70,9 @@ public class NotePresenter {
      * @param text новый текст
      */
     public void onTextChanged(String text){
-        noteViewModel.setText(text);
-        noteViewModel.setHasChanges(true);
+        if (!noteViewModel.getText().equals(text)){
+            noteViewModel.setText(text);
+            noteViewModel.setHasChanges(true);
+        }
     }
 }

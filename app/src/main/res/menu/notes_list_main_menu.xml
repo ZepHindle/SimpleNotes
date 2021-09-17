@@ -4,31 +4,31 @@
     <item
         android:icon="@drawable/add_drawable"
         android:id="@+id/main_menu_item_add_note"
-        app:showAsAction="ifRoom|withText"
-        android:title="" />
+        app:showAsAction="never|withText"
+        android:title="@string/add_note" />
 
     <item
         android:icon="@drawable/create_account_drawable"
         android:id="@+id/main_menu_item_create_account"
-        app:showAsAction="ifRoom|withText"
-        android:title="" />
+        app:showAsAction="never|withText"
+        android:title="@string/create_account" />
 
     <item
         android:id="@+id/main_menu_item_login"
         android:icon="@drawable/login_drawable"
         android:title="@string/log_in"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="never|withText" />
 
     <item
         android:id="@+id/main_menu_upload"
         android:icon="@drawable/upload_drawable"
-        android:title="upload"
-        app:showAsAction="ifRoom|withText" />
+        android:title="@string/upload"
+        app:showAsAction="never|withText" />
 
     <item
         android:id="@+id/main_menu_load"
         android:icon="@drawable/load_drawable"
-        android:title="load"
-        app:showAsAction="ifRoom|withText" />
+        android:title="@string/load"
+        app:showAsAction="never|withText" />
 
 </menu>

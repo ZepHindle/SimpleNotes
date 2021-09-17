@@ -105,6 +105,13 @@ public class NotesListPresenter {
     }
 
     /**
+     * Вызывается при нажатии кнопки "add".
+     */
+    public void onAddButtonPress(){
+        view.showNewNoteDialog();
+    }
+
+    /**
      * Вызывается при выборе пункта в главном меню "add note".
      */
     public void onMainMenuAddNote(){

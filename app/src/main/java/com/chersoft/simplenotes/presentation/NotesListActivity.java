@@ -80,6 +80,10 @@ public class NotesListActivity extends AppCompatActivity implements NotesListVie
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         this.progressBar = findViewById(R.id.notes_list_activity_progress_bar);
+
+        this.findViewById(R.id.add_note_button).setOnClickListener(v -> {
+            getPresenter().onAddButtonPress();
+        });
     }
 
     public NotesListPresenter getPresenter() {

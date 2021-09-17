@@ -2,9 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
 
     defaultConfig {
         applicationId "com.chersoft.simplenotes"

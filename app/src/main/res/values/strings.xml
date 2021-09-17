@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SimpleNotes</string>
-    <string name="popupmenu_edit">edit</string>
+    <string name="app_name">Simple Notes</string>
+    <string name="popupmenu_change_colors">change colors</string>
     <string name="popupmenu_delete">delete</string>
     <string name="new_note_dialog_enter_note_name">Enter note name</string>
     <string name="note_already_exists">Note with this name already exists</string>
@@ -24,4 +24,8 @@
     <string name="login_successful">Log in successful</string>
     <string name="notes_uploaded_successfully">Notes uploaded successfully</string>
     <string name="you_need_to_login">You need to login first</string>
+    <string name="upload">upload</string>
+    <string name="load">load</string>
+    <string name="create_account">create account</string>
+    <string name="add_note">add note</string>
 </resources>
